@@ -49,7 +49,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "poultryplus.urls"
 
-
+ACCOUNT_SIGNUP_FORM_CLASS = 'base_app.forms.SignupForm'
+AUTH_USER_MODEL = "base_app.CustomUser"
 ALLOWED_HOSTS = ["localhost"]
 
 TEMPLATES = [
@@ -121,7 +122,7 @@ STATICFILES_DIRS = [BASE_DIR / "assets"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 

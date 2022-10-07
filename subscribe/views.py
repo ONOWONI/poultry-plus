@@ -10,32 +10,30 @@ load_dotenv()
 
 #  return redirect(str(process_payment(name,email,amount,phone)))
 # Create your views here.
-def process_payment(name,email,amount,phone):
+def process_payment():
     auth_token= os.getenv('FLUTTERWAVE_SECRET_KEY')
     hed = {'Authorization': 'Bearer ' + auth_token}
     data = {
                 "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
-                "amount":amount,
-                "currency":"NGN",
-                "redirect_url":"http://localhost:8000/callback",
-                "payment_plan": 26932,
-                "payment_options":"card",
-                "meta":{
-                    "consumer_id":23,
-                    "consumer_mac":"92a3-912ba-1192a"
-                },
-                "customer":{
-                    "email":email,
-                    "phonenumber":phone,
-                    "name":name
-                },
-                "customizations":{
-                    "title":"Poultry Plus Pro Plan",
-                    "description":"Pro version of poultry plus",
-                    "logo":"https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
-                }
-                }
-    url = ' https://api.flutterwave.com/v3/payments'
+            "amount": "5000",
+            "currency": "NGN",
+            "payment_plan":"28319",
+            "redirect_url":"http://localhost:8000/callback",
+            "meta": {
+                "consumer_id": 23,
+                "consumer_mac": "92a3-912ba-1192a"
+            },
+            "customer": {
+                "email": "user@gmail.com",
+                "phonenumber": "080****4528",
+                "name": "Yemi Desola"
+            },
+            "customizations": {
+                "title": "Pied Piper Payments",
+                "logo": "http://www.piedpiper.com/app/themes/joystick-v27/images/logo.png"
+            }
+        }
+    url = "https://api.flutterwave.com/v3/payments"
     response = requests.post(url, json=data, headers=hed)
     response=response.json()
     link=response['data']['link']
@@ -51,3 +49,6 @@ def payment_response(request):
     print(status)
     print(tx_ref)
     return HttpResponse('Finished')
+
+
+

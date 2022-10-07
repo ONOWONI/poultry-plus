@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def payments_page(request):
+    return redirect(str(process_payment()))
     # return redirect(str(process_payment('name','donowoni@gmail.com',100,9133117289)))
     pass
 
