@@ -18,5 +18,12 @@ class SignupForm(forms.ModelForm):
         user.save()
 
 
+class InventoryForm(forms.Form):
+    name = forms.CharField(max_length=50)
+    price_per_one = forms.FloatField()
+    quantity = forms.IntegerField()
+    age_week = forms.IntegerField()
+    age_day = forms.IntegerField()
 
 #  ChoiceField(**kwargs)¶
+

@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "channels",
     "base_app",
     "django.contrib.sites",
     "subscribe",
@@ -28,6 +29,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -73,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "poultryplus.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -114,7 +115,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "assets"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 # Default primary key field type
@@ -164,3 +165,14 @@ ACCOUNT_LOGOUT_REDIRECT_URL ='/bye/'
 
 # redirects to profile page if not configured.
 LOGIN_REDIRECT_URL = '/'
+
+
+ASGI_APPLICATION = "poultryplus.asgi.application"
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
