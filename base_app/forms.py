@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django import forms
-from .models import SCALE_CHOICES
+from .models import SCALE_CHOICES, Expenses, Income
 
 class SignupForm(forms.ModelForm):
     farmerScale = forms.ChoiceField(choices = SCALE_CHOICES)
@@ -27,3 +27,16 @@ class AnimalForm(forms.Form):
 
 #  ChoiceField(**kwargs)¶
 
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expenses
+        exclude = ["owner_id"]
+        fields = "__all__"
+
+
+
+class IncomeForm(forms.ModelForm):
+    class Meta:
+        model = Income
+        exclude = ["owner_id"]
+        fields = "__all__"

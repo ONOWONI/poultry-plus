@@ -39,6 +39,7 @@ class Expenses(models.Model):
     amount = models.FloatField()
     type = models.CharField(max_length=14, choices=EXPENSE_CHOICES)
     date= models.DateField(auto_now_add=True)
+    owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 
 INCOME_CHOICES = (
@@ -55,3 +56,4 @@ class Income(models.Model):
     quantity_sold = models.IntegerField()
     type = models.CharField(max_length=14, choices=INCOME_CHOICES)
     date= models.DateField(auto_now_add=True)
+    owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
