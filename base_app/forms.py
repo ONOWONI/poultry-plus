@@ -18,7 +18,7 @@ class SignupForm(forms.ModelForm):
         user.save()
 
 
-class InventoryForm(forms.Form):
+class AnimalForm(forms.Form):
     name = forms.CharField(max_length=50)
     price_per_one = forms.FloatField()
     quantity = forms.IntegerField()
