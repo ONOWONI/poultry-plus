@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>{{ title }}</title>
 </head>
 <body>
     Hello nigga
@@ -14,18 +14,10 @@
     {% comment %} {% endcache %} {% endcomment %}
     <form action = "" method = "post">
         {% csrf_token %}
-        {{ animal_input_form.as_ul }}
+        {{ form.as_ul }}
         <input type="submit" value="Submit">
     </form>
-    <form action = "" method = "post">
-        {% csrf_token %}
-        {{ animal_monthly_form.as_ul }}
-        <input type="submit" value="Submit">
-    </form>
-   Total number of animals: {{ total_alive_animal }} </br>
-    Number of animals beginning of month - {{ total_monthly_animal }}</br>
-    Total Money Spent > ${{ total_money_spent }}</br>
-    total money earned : {{ total_money_earned }}</br>
-    total profit : {{ total_profit }}</br>
+
+
 </body>
 </html>

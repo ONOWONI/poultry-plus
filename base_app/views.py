@@ -1,12 +1,9 @@
-import time
 from django.shortcuts import render, redirect
 from subscribe.views import process_payment
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import cache_page
-from django.contrib.auth import base_user
-from .decorators import allowed_users
-from .forms import AnimalForm, ExpenseForm, IncomeForm
-from .models  import Animal
+from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm
+from .models  import Animal, Expenses, Income
+from .utils import sumOfArr
 
 
 def payments_page(request):
@@ -20,19 +17,62 @@ def payments_page(request):
 # @cache_page(15)
 def home(request):
     # if request.method == 'POST':
-    form = AnimalForm(request.POST)
-    if request.method == "POST" and form.is_valid():
-        name = form.cleaned_data['name']
-        price_per_one = form.cleaned_data['price_per_one']
-        quantity = form.cleaned_data['quantity']
-        age_week = form.cleaned_data['age_week']
-        age_day = form.cleaned_data['age_day']
-        age = f"{age_week}.{age_day}"
-        user = request.user
-        print(user)
-        p = Animal(name=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age=float(age),owner_id=user)
-        p.save()
-    return render(request, "views_temp/home.html", {"form": form})
+    content = {}
+    ## forms
+    animal_input_form = AnimalForm(request.POST)
+    animal_monthly_form = AnimalMonthlyForm(request.POST)
+    ### Database queries
+    total_alive_animal = Animal.objects.filter(owner_id = request.user, alive=True).all()
+    total_expense = Expenses.objects.filter(owner_id = request.user).all()
+    total_income = Income.objects.filter(owner_id = request.user).all()
+
+    # waste of space
+    total_animal_quantity = sumOfArr(total_alive_animal,"quantity")
+    total_spent = sumOfArr(total_expense, "amount")
+    total_earned = sumOfArr(total_income, "amount")
+    total_profit = total_earned - total_spent
+
+    ## content
+    content["animal_input_form"] = animal_input_form
+    content["total_monthly_animal"] = 15
+    content["animal_monthly_form"] = animal_monthly_form
+    content["total_alive_animal"] = total_animal_quantity
+    content["total_money_spent"] = total_spent
+    content["total_money_earned"] = total_earned
+    content["total_profit"] = total_profit
+    if request.method == "POST":
+        if animal_input_form.is_valid():
+            name = animal_input_form.cleaned_data['animal']
+            price_per_one = animal_input_form.cleaned_data['price_per_one']
+            quantity = animal_input_form.cleaned_data['quantity']
+            age_week = animal_input_form.cleaned_data['age_week']
+            age_day = animal_input_form.cleaned_data['age_day']
+            age = f"{age_week}.{age_day}"
+            user = request.user
+            p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age=float(age),owner_id=user)
+            p.save()
+        if animal_monthly_form.is_valid():
+            seleted_date = animal_monthly_form.cleaned_data['date']
+            total_selected_animal = Animal.objects.filter(owner_id = request.user,created_at=seleted_date).all()
+            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive=True, created_at=seleted_date).all()
+            total_expense = Expenses.objects.filter(owner_id = request.user,date=seleted_date).all()
+            total_income = Income.objects.filter(owner_id = request.user,date=seleted_date).all()
+
+
+
+            total_animal_quantity = sumOfArr(total_selected_animal, "quantity")
+            total_selected_alive_animal_quantity = sumOfArr(selected_alive_animal, "quantity")
+            total_spent = sumOfArr(total_expense, "amount")
+            total_earned = sumOfArr(total_income, "amount")
+            total_profit = total_earned - total_spent
+
+
+            content["total_monthly_animal"] = total_animal_quantity
+            content["total_alive_animal"] = total_selected_alive_animal_quantity
+            content["total_money_spent"] = total_spent
+            content["total_money_earned"] = total_earned
+            content["total_profit"] = total_profit
+    return render(request, "views_temp/home.html", content)
 
 
 
@@ -57,12 +97,15 @@ def room(request, room_name):
 
 
 def expenses(request):
+    content = {}
     form = ExpenseForm(request.POST)
     if form.is_valid():
         expense = form.save(commit=False)
         expense.owner_id = request.user
         expense.save()
-    return render(request, "views_temp/home.html", {"form": form})
+    content["title"] = "Expense"
+    content["form"] = form
+    return render(request, "views_temp/single_form_template.html", content)
 
 
 def income(request):
@@ -71,4 +114,4 @@ def income(request):
         income = form.save(commit=False)
         income.owner_id = request.user
         income.save()
-    return render(request, "views_temp/home.html", {"form": form})
+    return render(request, "views_temp/single_form_template.html", {"form": form})

@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
+# from django.contrib.auth.models import Group
 from django import forms
-from .models import SCALE_CHOICES, Expenses, Income
+from .models import SCALE_CHOICES, Expenses, Income, ANIMAL_CHOICES
 
 class SignupForm(forms.ModelForm):
     farmerScale = forms.ChoiceField(choices = SCALE_CHOICES)
@@ -13,13 +13,10 @@ class SignupForm(forms.ModelForm):
         user.first_name = self.cleaned_data['first_name']
         user.farmerScale = self.cleaned_data['farmerScale']
         user.save()
-        group = Group.objects.get(name="free")
-        user.groups.add(group)
-        user.save()
 
 
 class AnimalForm(forms.Form):
-    name = forms.CharField(max_length=50)
+    animal = forms.ChoiceField(choices=ANIMAL_CHOICES)
     price_per_one = forms.FloatField()
     quantity = forms.IntegerField()
     age_week = forms.IntegerField()
@@ -40,3 +37,7 @@ class IncomeForm(forms.ModelForm):
         model = Income
         exclude = ["owner_id"]
         fields = "__all__"
+
+
+class AnimalMonthlyForm(forms.Form):
+    date = forms.DateField()

@@ -1,7 +1,8 @@
-# Create your models here.
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from datetime import datetime
 
+datetime.utcnow()
 
 SCALE_CHOICES = (
     ("SMALL", "SMALL"),
@@ -17,8 +18,19 @@ class CustomUser(AbstractUser):
         return self.username
 
 
+
+ANIMAL_CHOICES = (
+    ("Chicken" , "Chicken"),
+    ("Fish" , "Fish"),
+    ("Turkey" , "Turkey"),
+    ("Cow" , "Cow"),
+    ("Goat" , "Goat"),
+    ("Sheep" , "Sheep"),
+    ("other" , "other"),
+)
+
 class Animal(models.Model):
-    name = models.CharField(max_length=30)
+    animal = models.CharField(max_length=8, choices=ANIMAL_CHOICES)
     price_bought_per_one = models.FloatField()
     quantity = models.IntegerField()
     animal_age = models.FloatField()
@@ -31,13 +43,13 @@ EXPENSE_CHOICES = (
     ("feeds" , "feeds"),
     ("drugs" , "drugs"),
     ("equipment" , "equipment"),
-    ("miscellaneous" , "miscellaneous")
+    ("miscellaneous" , "miscellaneous"),
 )
 
 class Expenses(models.Model):
     name = models.CharField(max_length=30)
     amount = models.FloatField()
-    type = models.CharField(max_length=14, choices=EXPENSE_CHOICES)
+    category = models.CharField(max_length=14, choices=EXPENSE_CHOICES)
     date= models.DateField(auto_now_add=True)
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
@@ -46,7 +58,7 @@ INCOME_CHOICES = (
     ("eggs" , "eggs"),
     ("meat" , "meat"),
     ("milk" , "milk"),
-    ("other" , "other")
+    ("other" , "other"),
 )
 
 
@@ -54,6 +66,6 @@ class Income(models.Model):
     name = models.CharField(max_length=30)
     amount = models.FloatField()
     quantity_sold = models.IntegerField()
-    type = models.CharField(max_length=14, choices=INCOME_CHOICES)
+    category = models.CharField(max_length=14, choices=INCOME_CHOICES)
     date= models.DateField(auto_now_add=True)
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
