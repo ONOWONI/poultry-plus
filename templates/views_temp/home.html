@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load cache %}
+{% comment %} {% load cache %} {% endcomment %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,10 +22,18 @@
         {{ animal_monthly_form.as_ul }}
         <input type="submit" value="Submit">
     </form>
-   Total number of animals: {{ total_alive_animal }} </br>
-    Number of animals beginning of month - {{ total_monthly_animal }}</br>
-    Total Money Spent > ${{ total_money_spent }}</br>
-    total money earned : {{ total_money_earned }}</br>
-    total profit : {{ total_profit }}</br>
+    <div>
+        Total number of animals: {{ total_alive_animal }} </br>
+        total_alive_chicken: {{total_alive_chicken}} </br>
+        total_alive_cow: {{total_alive_cow}} </br>
+        total_alive_turkey: {{total_alive_turkey}} </br>
+        total_alive_fish: {{total_alive_fish}} </br>
+        total_alive_goat: {{total_alive_goat}} </br>
+        total_alive_sheep: {{total_alive_sheep}} </br>
+        Number of animals beginning of month - {{ total_monthly_animal }}</br>
+        Total Money Spent > ${{ total_money_spent }}</br>
+        total money earned : {{ total_money_earned }}</br>
+        total profit : {{ total_profit }}</br>
+    </div>
 </body>
 </html>

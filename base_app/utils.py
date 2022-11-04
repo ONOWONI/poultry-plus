@@ -23,6 +23,8 @@ def sumOfArr(arr, modelType):
             else:
                 total_max +=arr[right].quantity
                 right +=1
+    else:
+        print("amount and quantity are your only options")
     return total_max
 
 

@@ -33,10 +33,11 @@ class Animal(models.Model):
     animal = models.CharField(max_length=8, choices=ANIMAL_CHOICES)
     price_bought_per_one = models.FloatField()
     quantity = models.IntegerField()
-    animal_age = models.FloatField()
+    animal_age_at_bought = models.FloatField()
     created_at = models.DateField(auto_now=True)
     alive = models.BooleanField(default=True)
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
 
 
 EXPENSE_CHOICES = (

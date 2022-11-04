@@ -11,5 +11,5 @@ urlpatterns = [
     path("expense/", views.expenses, name="expense"),
     path("income/", views.income, name="expense"),
     path("<str:room_name>/", views.room, name='room'),
-    path("payrment/", views.payments_page, name="payment page"),
+    path("payment/", views.payments_page, name="payment page"),
 ]
