@@ -12,6 +12,7 @@
     {% comment %} {% cache 15 slowrunner %} {% endcomment %}
     whats up bitchsss13
     {% comment %} {% endcache %} {% endcomment %}
+    {% block content %}{% endblock content %}
     <form action = "" method = "post">
         {% csrf_token %}
         {{ form.as_ul }}

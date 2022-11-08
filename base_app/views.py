@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from subscribe.views import process_payment
 from django.contrib.auth.decorators import login_required
-from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm
+from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm, DeathForm
 from .models  import Animal, Expenses, Income
 from .utils import sumOfArr
 from datetime import datetime
+from .task import update_dead
 
 
 def payments_page(request):
@@ -34,7 +35,8 @@ def home(request):
     total_expense = Expenses.objects.filter(owner_id = request.user).all()
     total_income = Income.objects.filter(owner_id = request.user).all()
 
-    # waste of space
+
+    # calculations on the queries
     total_animal_quantity = sumOfArr(total_alive_animal,"quantity")
     total_chicken_quantity = sumOfArr(total_alive_chicken,"quantity")
     total_cow_quantity = sumOfArr(total_alive_cow,"quantity")
@@ -74,11 +76,20 @@ def home(request):
             p.save()
             return redirect(home)
         if animal_monthly_form.is_valid():
-            seleted_date = animal_monthly_form.cleaned_data['date']
-            total_selected_animal = Animal.objects.filter(owner_id = request.user,created_at=seleted_date).all()
-            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive=True, created_at=seleted_date).all()
-            total_expense = Expenses.objects.filter(owner_id = request.user,date=seleted_date).all()
-            total_income = Income.objects.filter(owner_id = request.user,date=seleted_date).all()
+            selected_date = animal_monthly_form.cleaned_data['date']
+
+            total_selected_animal = Animal.objects.filter(owner_id = request.user,created_at=selected_date).all()
+            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive=True, created_at=selected_date).all()
+            total_expense = Expenses.objects.filter(owner_id = request.user,date=selected_date).all()
+            total_income = Income.objects.filter(owner_id = request.user,date=selected_date).all()
+
+
+            # testing delete soon
+            dead_query = Animal.objects.filter(owner_id = request.user,created_at=selected_date, alive=True, animal="Chicken").all()
+            print(dead_query)
+            for i in dead_query:
+                print(i.animal)
+            # testing delete soon
 
 
 
@@ -140,3 +151,21 @@ def income(request):
         income.owner_id = request.user
         income.save()
     return render(request, "views_temp/single_form_template.html", {"form": form})
+
+
+def death_of_a_bird(request):
+    context = {}
+    form = DeathForm(request.POST)
+    if request.method =="POST":
+        if form.is_valid():
+            print("hello worldssss")
+            animal_form_data = form.cleaned_data['animal']
+            age_week_form_data = form.cleaned_data['age_week']
+            age_day_form_data = form.cleaned_data['age_day']
+            result = update_dead(animal_type=animal_form_data, age_week=age_week_form_data, age_day=age_day_form_data, user=request.user.id)
+            if result == "Animal Not Found":
+                # return flash message to the user
+                pass
+    context["form"] = form
+    context["title"] = "Death of an animal 😢"
+    return render(request, "views_temp/dead.html", context)

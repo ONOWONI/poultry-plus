@@ -41,3 +41,9 @@ class IncomeForm(forms.ModelForm):
 
 class AnimalMonthlyForm(forms.Form):
     date = forms.DateField()
+
+
+class DeathForm(forms.Form):
+    animal = forms.ChoiceField(choices=ANIMAL_CHOICES)
+    age_week = forms.IntegerField()
+    age_day = forms.IntegerField()

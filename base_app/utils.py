@@ -28,3 +28,10 @@ def sumOfArr(arr, modelType):
     return total_max
 
 
+def age_math(age_week, age_day):
+    if age_day > 7:
+        age_week += 1
+        age_day =0
+    week_in_days = age_week * 7
+    total_age_in_days = week_in_days + age_day
+    return total_age_in_days
