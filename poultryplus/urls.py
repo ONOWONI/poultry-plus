@@ -7,3 +7,5 @@ urlpatterns = [
     path('pay/', include('subscribe.urls')),
     path('accounts/', include('allauth.urls')),
 ]
+
+handler404="base_app.views.handle_404_Error"

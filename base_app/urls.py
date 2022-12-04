@@ -14,11 +14,12 @@ urlpatterns = [
     re_path(r"^(?P<room_name>[-\w]+)/$", views.room, name="room"),
     path("payment/", views.payments_page, name="payment page"),
     path("death/no", views.death_of_a_bird, name="dead page"),
+    path("deathform/<time>/<str:animal>", views.update_death_database, name="death form")
 ]
+
 
 # from django.urls import re_path
 # from . import views
-
 # urlpatterns = [
 #     re_path(r"^$", views.bye, name="logout"),
 # ]

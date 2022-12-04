@@ -26,7 +26,6 @@ ANIMAL_CHOICES = (
     ("Cow" , "Cow"),
     ("Goat" , "Goat"),
     ("Sheep" , "Sheep"),
-    ("other" , "other"),
 )
 
 class Animal(models.Model):
@@ -34,8 +33,9 @@ class Animal(models.Model):
     price_bought_per_one = models.FloatField()
     quantity = models.IntegerField()
     animal_age_at_bought = models.FloatField()
-    created_at = models.DateField(auto_now=True)
-    alive = models.BooleanField(default=True)
+    created_at = models.DateField(auto_now_add=True)
+    modified_aat = models.DateField(auto_now=True)
+    alive = models.IntegerField()
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 

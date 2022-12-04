@@ -12,13 +12,18 @@
     {% comment %} {% cache 15 slowrunner %} {% endcomment %}
     whats up bitchsss13
     {% comment %} {% endcache %} {% endcomment %}
-    {% block content %}{% endblock content %}
+    {% if messages %}
+        {% for message in messages %}
+            <h1> {{message}}</h1>
+        {% endfor %}
+    {% endif %}
+
     <form action = "" method = "post">
         {% csrf_token %}
         {{ form.as_ul }}
         <input type="submit" value="Submit">
     </form>
-
+    {% block content %}{% endblock content %}
 
 </body>
 </html>

@@ -35,3 +35,8 @@ def age_math(age_week, age_day):
     week_in_days = age_week * 7
     total_age_in_days = week_in_days + age_day
     return total_age_in_days
+
+
+
+def alive_animals(quantity, alive):
+    pass

@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from subscribe.views import process_payment
 from django.contrib.auth.decorators import login_required
-from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm, DeathForm
+from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm, DeathForm, QuantityForm
 from .models  import Animal, Expenses, Income
-from .utils import sumOfArr
-from datetime import datetime
-from .task import update_dead
-
+from .utils import sumOfArr, age_math
+from datetime import datetime, timedelta, date
+from django.contrib import messages
 
 def payments_page(request):
     return redirect(str(process_payment()))
@@ -72,7 +71,7 @@ def home(request):
             age_day = animal_input_form.cleaned_data['age_day']
             age = f"{age_week}.{age_day}"
             user = request.user
-            p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),owner_id=user)
+            p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=user)
             p.save()
             return redirect(home)
         if animal_monthly_form.is_valid():
@@ -139,6 +138,7 @@ def expenses(request):
         expense = form.save(commit=False)
         expense.owner_id = request.user
         expense.save()
+        return redirect("home")
     content["title"] = "Expense"
     content["form"] = form
     return render(request, "views_temp/single_form_template.html", content)
@@ -150,6 +150,7 @@ def income(request):
         income = form.save(commit=False)
         income.owner_id = request.user
         income.save()
+        return redirect("home")
     return render(request, "views_temp/single_form_template.html", {"form": form})
 
 
@@ -158,14 +159,57 @@ def death_of_a_bird(request):
     form = DeathForm(request.POST)
     if request.method =="POST":
         if form.is_valid():
-            print("hello worldssss")
             animal_form_data = form.cleaned_data['animal']
             age_week_form_data = form.cleaned_data['age_week']
             age_day_form_data = form.cleaned_data['age_day']
-            result = update_dead(animal_type=animal_form_data, age_week=age_week_form_data, age_day=age_day_form_data, user=request.user.id)
-            if result == "Animal Not Found":
-                # return flash message to the user
-                pass
+            user = request.user.id
+            # below is the code to calculate the age of the animal and query it
+            age_in_days = age_math(age_week_form_data, age_day_form_data)
+            created_at_date = datetime.strptime(str(date.today()), '%Y-%m-%d') - timedelta(days=age_in_days)
+            print(timedelta(days=age_in_days))
+            print("created at date",created_at_date)
+            dead_query = Animal.objects.filter(owner_id = user,created_at=created_at_date, animal=animal_form_data).first()
+            if dead_query:
+                query_result = dead_query.alive
+                context["query_result"] = f"You have {query_result} alive animals this age"
+                time = datetime.strftime(created_at_date, '%Y-%m-%d')
+                print(time)
+                return redirect("death form", time=time, animal=animal_form_data)
+            else:
+                messages.info(request, "Sorry we could not find your animal")
     context["form"] = form
     context["title"] = "Death of an animal 😢"
     return render(request, "views_temp/dead.html", context)
+
+
+
+def update_death_database(request, time,animal):
+    context = {}
+    print("time: ", time)
+    print("animal", animal)
+    dead_query = Animal.objects.filter(owner_id=request.user, created_at=time, animal=animal).first()
+    query_result = dead_query.alive
+    print(query_result)
+    form = QuantityForm(request.POST)
+    if request.method =="POST":
+        if form.is_valid():
+            quantity_form_data = form.cleaned_data['quantity']
+            if quantity_form_data > query_result:
+                # flash must be less than number of alive animal
+                messages.info(request, "Must be lower than alive animals")
+            else:
+                dead_query.alive = query_result - quantity_form_data
+                dead_query.save()
+                messages.info(request, "Updated")
+                return redirect("home")
+
+    context["title"] = "Death of an animal"
+    context["query_result"] = f"You have {query_result} alive animals this age"
+    context["form"] = form
+    return render(request, "views_temp/dead.html", context)
+
+
+def handle_404_Error(request, exception):
+    context = {}
+    context["title"] = "404"
+    return render(request, "error_pages/404_error_page.html")

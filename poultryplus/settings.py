@@ -78,6 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "poultryplus.wsgi.application"
 
+ASGI_APPLICATION = "poultryplus.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -178,7 +179,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL ='/bye/'
 LOGIN_REDIRECT_URL = '/'
 
 
-ASGI_APPLICATION = "poultryplus.asgi.application"
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -187,6 +187,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-
-CELERY_BROKER_URL = 'redis://localhost:6379'

@@ -1,6 +1,11 @@
 {% extends 'views_temp/single_form_template.html' %}
 {% block content %}
-    <h3>The result is result</h3>
+    {% if messages %}
+        {% for message in messages %}
+            <h1> {{message}}</h1>
+        {% endfor %}
+    {% endif %}
+    <h3>{{ query_result }}</h3>
 {% endblock content %}
 
 
