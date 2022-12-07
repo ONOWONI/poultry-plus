@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from subscribe.views import process_payment
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm, DeathForm, QuantityForm
 from .models  import Animal, Expenses, Income
 from .utils import sumOfArr, age_math
 from datetime import datetime, timedelta, date
 from django.contrib import messages
+
+
+User = get_user_model()
+
 
 def payments_page(request):
     return redirect(str(process_payment()))
@@ -120,8 +126,18 @@ def bye(request):
     return render(request, "views_temp/bye.html")
 
 def forum_room(request):
-    return render(request, "views_temp/forum.html")
+    context = {}
+    professionals = User.objects.filter(groups__name="PROs")
+    context["professionals"] = professionals
+    return render(request, "views_temp/forum.html", context)
 
+
+
+def private_room(request, id):
+    context = {}
+    context['owner'] = request.user.username
+    context['other_user_id'] = id
+    return render(request, 'views_temp/private_room.html', context)
 
 
 def room(request, room_name):
@@ -163,17 +179,15 @@ def death_of_a_bird(request):
             age_week_form_data = form.cleaned_data['age_week']
             age_day_form_data = form.cleaned_data['age_day']
             user = request.user.id
+
             # below is the code to calculate the age of the animal and query it
             age_in_days = age_math(age_week_form_data, age_day_form_data)
             created_at_date = datetime.strptime(str(date.today()), '%Y-%m-%d') - timedelta(days=age_in_days)
-            print(timedelta(days=age_in_days))
-            print("created at date",created_at_date)
             dead_query = Animal.objects.filter(owner_id = user,created_at=created_at_date, animal=animal_form_data).first()
             if dead_query:
                 query_result = dead_query.alive
                 context["query_result"] = f"You have {query_result} alive animals this age"
                 time = datetime.strftime(created_at_date, '%Y-%m-%d')
-                print(time)
                 return redirect("death form", time=time, animal=animal_form_data)
             else:
                 messages.info(request, "Sorry we could not find your animal")
@@ -187,7 +201,8 @@ def update_death_database(request, time,animal):
     context = {}
     print("time: ", time)
     print("animal", animal)
-    dead_query = Animal.objects.filter(owner_id=request.user, created_at=time, animal=animal).first()
+    user = request.user.id
+    dead_query = Animal.objects.filter(owner_id=user, created_at=time, animal=animal).first()
     query_result = dead_query.alive
     print(query_result)
     form = QuantityForm(request.POST)
@@ -195,7 +210,6 @@ def update_death_database(request, time,animal):
         if form.is_valid():
             quantity_form_data = form.cleaned_data['quantity']
             if quantity_form_data > query_result:
-                # flash must be less than number of alive animal
                 messages.info(request, "Must be lower than alive animals")
             else:
                 dead_query.alive = query_result - quantity_form_data

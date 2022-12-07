@@ -45,8 +45,7 @@ cow.addEventListener("click", () => {
 // cow.onclick(leadToRoom(cow))
 
 function leadToRoom(roomname) {
-    console.log("howdy23");
     var roomName = roomname.textContent;
-    window.location.pathname = '/' + roomName + '/';
+    window.location.pathname = '/' + "chat" + "/" + roomName + '/';
 };
 

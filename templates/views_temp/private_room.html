@@ -1,0 +1,17 @@
+<!-- chat/templates/chat/room.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{{other_user_id}}</title>
+    </head>
+    <body>
+        <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+        <input id="chat-message-input" type="text" size="100"><br>
+        <input id="chat-message-submit" type="button" value="Send">
+        <div id='user'>{{ owner }}</div>
+        {{ other_user_id|json_script:"room-id" }}
+        <script src="{% static 'javascript/private_room.js' %}"></script>
+    </body>
+</html>
