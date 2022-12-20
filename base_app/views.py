@@ -14,9 +14,12 @@ User = get_user_model()
 
 
 def payments_page(request):
-    return redirect(str(process_payment()))
+    user_email = request.user.email
+    user_fname = request.user.first_name
+    user_lname = request.user.last_name
+    user_name = user_fname + " " + user_lname
+    return redirect(str(process_payment(user_email, user_name)))
     # return redirect(str(process_payment('name','donowoni@gmail.com',100,9133117289)))
-    pass
 
 
 @login_required
@@ -116,7 +119,7 @@ def dashboard(request):
 
 
 
-
+@login_required
 def upgrade_to_pro(request):
     return render(request, "views_temp/upgradeToPro.html")
 

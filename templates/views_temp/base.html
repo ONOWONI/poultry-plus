@@ -11,18 +11,22 @@
     <link rel="stylesheet" href="{% static 'views/forum.css' %}">
 </head>
 <body>
-    <div>
-        <div><a href="{% url 'home' %}">Home</a></div>
-        <div><a href="{% url 'dashboard' %}">Dashboard</a></div>
-        <div><a href="{% url 'Forum' %}">Forum</a></div>
-        <div><a href="{% url 'expense' %}">Expenses</a></div>
-        <div><a href="{% url 'income' %}">Income</a></div>
-        <div><a href="{% url 'dead page' %}">Report loss of animal</a></div>
-    </div>
-    {% comment %} {% cache 15 slowrunner %} {% endcomment %}
-    {% comment %} {% endcache %} {% endcomment %}
-    <div>
-        {% block content %}{% endblock content %}
+    <div class="base-container">
+        <div class="base-left">
+            <div class="base-left-links">
+                <div><a href="{% url 'home' %}">Home</a></div>
+                <div><a href="{% url 'dashboard' %}">Dashboard</a></div>
+                <div><a href="{% url 'Forum' %}">Forum</a></div>
+                <div><a href="{% url 'expense' %}">Expenses</a></div>
+                <div><a href="{% url 'income' %}">Income</a></div>
+                <div><a href="{% url 'dead page' %}">Report loss of animal</a></div>
+            </div>
+        </div>
+        {% comment %} {% cache 15 slowrunner %} {% endcomment %}
+        {% comment %} {% endcache %} {% endcomment %}
+        <div class="base-right">
+            {% block content %}{% endblock content %}
+        </div>
     </div>
 </body>
 </html>

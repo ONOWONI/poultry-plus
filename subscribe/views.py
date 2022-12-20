@@ -10,7 +10,7 @@ load_dotenv()
 
 #  return redirect(str(process_payment(name,email,amount,phone)))
 # Create your views here.
-def process_payment():
+def process_payment(email, name):
     auth_token= os.getenv('FLUTTERWAVE_SECRET_KEY')
     hed = {'Authorization': 'Bearer ' + auth_token}
     data = {
@@ -24,12 +24,12 @@ def process_payment():
                 "consumer_mac": "92a3-912ba-1192a"
             },
             "customer": {
-                "email": "user@gmail.com",
-                "phonenumber": "080****4528",
-                "name": "Yemi Desola"
+                "email": email,
+                # "phonenumber": "080****4528",
+                "name": name
             },
             "customizations": {
-                "title": "Pied Piper Payments",
+                "title": "Poultry Plus",
                 "logo": "http://www.piedpiper.com/app/themes/joystick-v27/images/logo.png"
             }
         }

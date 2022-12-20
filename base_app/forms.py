@@ -7,10 +7,11 @@ class SignupForm(forms.ModelForm):
     farmerScale = forms.ChoiceField(choices = SCALE_CHOICES)
     class Meta:
         model = get_user_model()
-        fields = ['first_name',"farmerScale"]
+        fields = ['first_name', 'last_name',"farmerScale"]
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         user.farmerScale = self.cleaned_data['farmerScale']
         user.save()
 
