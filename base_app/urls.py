@@ -5,11 +5,11 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("bye/", views.bye, name="bye"),
+    path("dashboard/", views.dashboard, name="dashboard"),
     path("pro/", views.upgrade_to_pro, name="Pro"),
     path("forum/", views.forum_room, name="Forum"),
     path("expense/", views.expenses, name="expense"),
-    path("income/", views.income, name="expense"),
+    path("income/", views.income, name="income"),
     # path("<str:room_name>/", views.room, name='room'),
     re_path(r"^chat/(?P<room_name>[-\w]+)/$", views.room, name="room"),
     path("personalchat/<int:id>/", views.private_room, name="private room"),

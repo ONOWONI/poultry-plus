@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 {% comment %} {% load cache %} {% endcomment %}
 <html lang="en">
@@ -6,11 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'views/main.css' %}">
+    <link rel="stylesheet" href="{% static 'views/forum.css' %}">
 </head>
 <body>
-    Hello nigga
+    <div>
+        <div><a href="{% url 'home' %}">Home</a></div>
+        <div><a href="{% url 'dashboard' %}">Dashboard</a></div>
+        <div><a href="{% url 'Forum' %}">Forum</a></div>
+        <div><a href="{% url 'expense' %}">Expenses</a></div>
+        <div><a href="{% url 'income' %}">Income</a></div>
+        <div><a href="{% url 'dead page' %}">Report loss of animal</a></div>
+    </div>
     {% comment %} {% cache 15 slowrunner %} {% endcomment %}
-    whats up bitchsss13
     {% comment %} {% endcache %} {% endcomment %}
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
 </body>
 </html>

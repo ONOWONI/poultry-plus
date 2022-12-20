@@ -1,13 +1,9 @@
 <!-- chat/templates/chat/index.html -->
+{% extends 'views_temp/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Chat Rooms</title>
-    </head>
-    <body>
-        <div>
+{% block content %}
+    <div class="forum">
+        <div class="chat-containers">
             <div id="chicken">Chickens</div>
             <div id="turkey">Turkeys</div>
             <div id="fish">Fish</div>
@@ -15,9 +11,11 @@
             <div id="goat">Goat</div>
             <div id="cow">Cow</div>
         </div>
-        {% for pro in professionals %}
-            <a href="{% url 'private room' pro.id%}" class='professionals' > {{pro.username}} </a>
-        {% endfor %}
+        <div class="pro-chat-container">
+            {% for pro in professionals %}
+                <a href="{% url 'private room' pro.id%}" class='professionals' > {{pro.username}} </a>
+            {% endfor %}
+        </div>
+    </div>
         <script src="{% static 'javascript/forum.js' %}"></script>
-    </body>
-</html>
+{% endblock content %}

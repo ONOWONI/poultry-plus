@@ -22,7 +22,7 @@ def payments_page(request):
 @login_required
 # @allowed_users(allowed_users=["pro"]) uncomment when you've finished with pro features
 # @cache_page(15)
-def home(request):
+def dashboard(request):
     print("first",datetime.utcnow())
     # if request.method == 'POST':
     content = {"title": "Dashboard",}
@@ -79,7 +79,7 @@ def home(request):
             user = request.user
             p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=user)
             p.save()
-            return redirect(home)
+            return redirect(dashboard)
         if animal_monthly_form.is_valid():
             selected_date = animal_monthly_form.cleaned_data['date']
 
@@ -112,7 +112,7 @@ def home(request):
             content["total_profit"] = total_profit
         print("post end", datetime.utcnow())
     print("last",datetime.utcnow())
-    return render(request, "views_temp/home.html", content)
+    return render(request, "views_temp/dashboard.html", content)
 
 
 
@@ -121,32 +121,46 @@ def upgrade_to_pro(request):
     return render(request, "views_temp/upgradeToPro.html")
 
 
-# change later to free page
-def bye(request):
-    return render(request, "views_temp/bye.html")
 
+# change later to free page
+def home(request):
+    context ={}
+    context['title'] = "Poultry Plus"
+    return render(request, "views_temp/home.html", context)
+
+
+
+@login_required
 def forum_room(request):
     context = {}
     professionals = User.objects.filter(groups__name="PROs")
     context["professionals"] = professionals
+    context["title"] = "Forum"
     return render(request, "views_temp/forum.html", context)
 
 
 
+@login_required
 def private_room(request, id):
     context = {}
     context['owner'] = request.user.username
     context['other_user_id'] = id
+    context["title"] = id
     return render(request, 'views_temp/private_room.html', context)
 
 
+
+@login_required
 def room(request, room_name):
     return render(request, 'views_temp/room.html', {
         'room_name': room_name,
-        'owner' : request.user.username
+        'owner' : request.user.username,
+        "title": room_name
     })
 
 
+
+@login_required
 def expenses(request):
     content = {}
     form = ExpenseForm(request.POST)
@@ -154,22 +168,26 @@ def expenses(request):
         expense = form.save(commit=False)
         expense.owner_id = request.user
         expense.save()
-        return redirect("home")
+        return redirect(dashboard)
     content["title"] = "Expense"
     content["form"] = form
     return render(request, "views_temp/single_form_template.html", content)
 
 
+
+@login_required
 def income(request):
     form= IncomeForm(request.POST)
     if form.is_valid():
         income = form.save(commit=False)
         income.owner_id = request.user
         income.save()
-        return redirect("home")
+        return redirect(dashboard)
     return render(request, "views_temp/single_form_template.html", {"form": form})
 
 
+
+@login_required
 def death_of_a_bird(request):
     context = {}
     form = DeathForm(request.POST)
@@ -197,6 +215,7 @@ def death_of_a_bird(request):
 
 
 
+@login_required
 def update_death_database(request, time,animal):
     context = {}
     print("time: ", time)
@@ -215,7 +234,7 @@ def update_death_database(request, time,animal):
                 dead_query.alive = query_result - quantity_form_data
                 dead_query.save()
                 messages.info(request, "Updated")
-                return redirect("home")
+                return redirect(dashboard)
 
     context["title"] = "Death of an animal"
     context["query_result"] = f"You have {query_result} alive animals this age"
@@ -223,6 +242,7 @@ def update_death_database(request, time,animal):
     return render(request, "views_temp/dead.html", context)
 
 
+@login_required
 def handle_404_Error(request, exception):
     context = {}
     context["title"] = "404"

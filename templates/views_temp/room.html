@@ -1,17 +1,12 @@
-<!-- chat/templates/chat/room.html -->
+{% extends 'views_temp/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>{{room_name}}</title>
-    </head>
-    <body>
+{% block content %}
+    <div class="chat-page">
         <textarea id="chat-log" cols="100" rows="20"></textarea><br>
         <input id="chat-message-input" type="text" size="100"><br>
         <input id="chat-message-submit" type="button" value="Send">
         <div id='user'>{{ owner }}</div>
         {{ room_name|json_script:"room-name" }}
         <script src="{% static 'javascript/room.js' %}"></script>
-    </body>
-</html>
+    </div>
+{% endblock content %}
