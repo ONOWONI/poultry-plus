@@ -1,5 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+from .models import ChatModel
+from channels.db import database_sync_to_async
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -54,8 +56,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         my_id = self.scope['user'].id
         other_user_id = self.scope['url_route']['kwargs']['id']
-        print("My id",my_id)
-        print("Other user Id: ",other_user_id)
+
         if int(my_id) > int(other_user_id):
             self.room_name = f'{my_id}-{other_user_id}-pro'
         else:
@@ -85,6 +86,9 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json['message']
         owner = text_data_json['owner']
 
+
+        await save_message(owner, self.room_group_name, message)
+
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -107,3 +111,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         }))
 
 
+@database_sync_to_async
+def save_message(username, thread_name, message):
+    savemessage = ChatModel(message=message, sender=username, thread_name=thread_name)
+    savemessage.save()

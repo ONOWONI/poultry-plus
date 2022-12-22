@@ -29,7 +29,7 @@ ANIMAL_CHOICES = (
 )
 
 class Animal(models.Model):
-    animal = models.CharField(max_length=8, choices=ANIMAL_CHOICES)
+    animal = models.CharField( max_length=8, choices=ANIMAL_CHOICES )
     price_bought_per_one = models.FloatField()
     quantity = models.IntegerField()
     animal_age_at_bought = models.FloatField()
@@ -70,3 +70,13 @@ class Income(models.Model):
     category = models.CharField(max_length=14, choices=INCOME_CHOICES)
     date= models.DateField(auto_now_add=True)
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+
+class ChatModel(models.Model):
+    sender = models.CharField(max_length=100, default=None)
+    message = models.TextField(null=True, blank=True)
+    thread_name = models.CharField(null=True, blank=True, max_length=50)
+    timestamp = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self) -> str:
+        return self.message

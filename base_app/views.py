@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from .forms import AnimalForm, ExpenseForm, IncomeForm, AnimalMonthlyForm, DeathForm, QuantityForm
-from .models  import Animal, Expenses, Income
+from .models  import Animal, Expenses, Income, ChatModel
 from .utils import sumOfArr, age_math
 from datetime import datetime, timedelta, date
 from django.contrib import messages
@@ -32,16 +32,17 @@ def dashboard(request):
     ## forms
     animal_input_form = AnimalForm(request.POST)
     animal_monthly_form = AnimalMonthlyForm(request.POST)
+    current_user = request.user
     ### Database queries
-    total_alive_animal = Animal.objects.filter(owner_id = request.user, alive=True).all()
-    total_alive_chicken = Animal.objects.filter(owner_id = request.user, alive=True, animal="Chicken").all()
-    total_alive_cow = Animal.objects.filter(owner_id = request.user, alive=True, animal="Cow").all()
-    total_alive_turkey = Animal.objects.filter(owner_id = request.user, alive=True, animal="Turkey").all()
-    total_alive_fish = Animal.objects.filter(owner_id = request.user, alive=True, animal="Fish").all()
-    total_alive_goat = Animal.objects.filter(owner_id = request.user, alive=True, animal="Goat").all()
-    total_alive_sheep = Animal.objects.filter(owner_id = request.user, alive=True, animal="Sheep").all()
-    total_expense = Expenses.objects.filter(owner_id = request.user).all()
-    total_income = Income.objects.filter(owner_id = request.user).all()
+    total_alive_animal = Animal.objects.filter(owner_id = current_user, alive=True).all()
+    total_alive_chicken = Animal.objects.filter(owner_id = current_user, alive=True, animal="Chicken").all()
+    total_alive_cow = Animal.objects.filter(owner_id = current_user, alive=True, animal="Cow").all()
+    total_alive_turkey = Animal.objects.filter(owner_id = current_user, alive=True, animal="Turkey").all()
+    total_alive_fish = Animal.objects.filter(owner_id = current_user, alive=True, animal="Fish").all()
+    total_alive_goat = Animal.objects.filter(owner_id = current_user, alive=True, animal="Goat").all()
+    total_alive_sheep = Animal.objects.filter(owner_id = current_user, alive=True, animal="Sheep").all()
+    total_expense = Expenses.objects.filter(owner_id = current_user).all()
+    total_income = Income.objects.filter(owner_id = current_user).all()
 
 
     # calculations on the queries
@@ -79,25 +80,19 @@ def dashboard(request):
             age_week = animal_input_form.cleaned_data['age_week']
             age_day = animal_input_form.cleaned_data['age_day']
             age = f"{age_week}.{age_day}"
-            user = request.user
-            p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=user)
+            # user = request.user
+            p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=current_user)
             p.save()
-            return redirect(dashboard)
+            return redirect(home)
         if animal_monthly_form.is_valid():
             selected_date = animal_monthly_form.cleaned_data['date']
+            print(selected_date)
 
             total_selected_animal = Animal.objects.filter(owner_id = request.user,created_at=selected_date).all()
             selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive=True, created_at=selected_date).all()
             total_expense = Expenses.objects.filter(owner_id = request.user,date=selected_date).all()
             total_income = Income.objects.filter(owner_id = request.user,date=selected_date).all()
 
-
-            # testing delete soon
-            dead_query = Animal.objects.filter(owner_id = request.user,created_at=selected_date, alive=True, animal="Chicken").all()
-            print(dead_query)
-            for i in dead_query:
-                print(i.animal)
-            # testing delete soon
 
 
 
@@ -146,9 +141,20 @@ def forum_room(request):
 @login_required
 def private_room(request, id):
     context = {}
+    other_user_id = User.objects.get(id=id)
+    owner = request.user.id
     context['owner'] = request.user.username
-    context['other_user_id'] = id
+    context['other_user_id'] = other_user_id.id
     context["title"] = id
+
+    if owner > other_user_id.id:
+        thread_name = f'chat_{owner}-{other_user_id.id}-pro'
+    else:
+        thread_name = f'chat_{other_user_id.id}-{owner}-pro'
+
+    messages_obj_in_db = ChatModel.objects.filter(thread_name=thread_name)
+    print(messages_obj_in_db)
+
     return render(request, 'views_temp/private_room.html', context)
 
 

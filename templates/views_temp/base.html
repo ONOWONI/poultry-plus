@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{% static 'views/forum.css' %}">
 </head>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+            <h1>{{message}}</h1>
+        {% endfor %}
+    {% endif %}
     <div class="base-container">
         <div class="base-left">
             <div class="base-left-links">

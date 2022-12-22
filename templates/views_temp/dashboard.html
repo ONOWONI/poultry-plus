@@ -3,21 +3,19 @@
 
     {% comment %} {% cache 15 slowrunner %} {% endcomment %}
     {% comment %} {% endcache %} {% endcomment %}
-    {% if messages %}
-        {% for message in messages %}
-            <h1>{{message}}</h1>
-        {% endfor %}
-    {% endif %}
-    <form action = "" method  "POST">
+    <form action="" method = "POST" >
         {% csrf_token %}
         {{ animal_input_form.as_p }}
         <input type="submit" value="Submit">
     </form>
-    <form action = "" method ="POST">
+
+    <form action="" method ="POST" >
         {% csrf_token %}
         {{ animal_monthly_form.as_p }}
         <input type="submit" value="Submit">
     </form>
+
+
     <div>
         Total number of animals: {{ total_alive_animal }} </br>
         total_alive_chicken: {{total_alive_chicken}} </br>
@@ -31,20 +29,20 @@
         total money earned : {{ total_money_earned }}</br>
         total profit : {{ total_profit }}</br>
     </div>
-<div>
-    asdlfhas;fha;fjasddf</br>
-    asdlfhas;fha;fjasddf</br>
-    asdlfhas;fha;fjasddf</br>
-    asdhfapsfiahsddf</br>
-    asdfhasdfkhassf</br>
-    asdfhasf;asd</br>
-    fasfgasddf;a</br>
-    sdfagsdfa</br>
-    fasdhgfgasdf</br>
-    asdfhgasf</br>
-    asddfasdf</br>
-    asfgasdf</br>
-    asdfhasdfkhassfasddfhasf</br>
-    asdhfapsfiahsddf</br>
-</div>
+    <div>
+        asdlfhas;fha;fjasddf</br>
+        asdlfhas;fha;fjasddf</br>
+        asdlfhas;fha;fjasddf</br>
+        asdhfapsfiahsddf</br>
+        asdfhasdfkhassf</br>
+        asdfhasf;asd</br>
+        fasfgasddf;a</br>
+        sdfagsdfa</br>
+        fasdhgfgasdf</br>
+        asdfhgasf</br>
+        asddfasdf</br>
+        asfgasdf</br>
+        asdfhasdfkhassfasddfhasf</br>
+        asdhfapsfiahsddf</br>
+    </div>
 {% endblock content %}
