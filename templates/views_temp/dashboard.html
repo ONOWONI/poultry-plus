@@ -1,8 +1,7 @@
 {% extends 'views_temp/base.html' %}
+{% load cache %}
 {% block content %}
 
-    {% comment %} {% cache 15 slowrunner %} {% endcomment %}
-    {% comment %} {% endcache %} {% endcomment %}
     <form action="" method = "POST" >
         {% csrf_token %}
         {{ animal_input_form.as_p }}
@@ -15,20 +14,21 @@
         <input type="submit" value="Submit">
     </form>
 
-
-    <div>
-        Total number of animals: {{ total_alive_animal }} </br>
-        total_alive_chicken: {{total_alive_chicken}} </br>
-        total_alive_cow: {{total_alive_cow}} </br>
-        total_alive_turkey: {{total_alive_turkey}} </br>
-        total_alive_fish: {{total_alive_fish}} </br>
-        total_alive_goat: {{total_alive_goat}} </br>
-        total_alive_sheep: {{total_alive_sheep}} </br>
-        Number of animals beginning of month - {{ total_monthly_animal }}</br>
-        Total Money Spent > ${{ total_money_spent }}</br>
-        total money earned : {{ total_money_earned }}</br>
-        total profit : {{ total_profit }}</br>
-    </div>
+    {% cache 300 slowrunner %}
+        <div>
+            Total number of animals: {{ total_alive_animal }} </br>
+            total_alive_chicken: {{total_alive_chicken}} </br>
+            total_alive_cow: {{total_alive_cow}} </br>
+            total_alive_turkey: {{total_alive_turkey}} </br>
+            total_alive_fish: {{total_alive_fish}} </br>
+            total_alive_goat: {{total_alive_goat}} </br>
+            total_alive_sheep: {{total_alive_sheep}} </br>
+            Number of animals beginning of month - {{ total_monthly_animal }}</br>
+            Total Money Spent > ${{ total_money_spent }}</br>
+            total money earned : {{ total_money_earned }}</br>
+            total profit : {{ total_profit }}</br>
+        </div>
+    {% endcache %}
     <div>
         asdlfhas;fha;fjasddf</br>
         asdlfhas;fha;fjasddf</br>

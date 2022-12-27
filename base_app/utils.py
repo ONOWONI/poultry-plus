@@ -38,5 +38,3 @@ def age_math(age_week, age_day):
 
 
 
-def alive_animals(quantity, alive):
-    pass
