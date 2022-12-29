@@ -14,9 +14,6 @@ User = get_user_model()
 
 
 def payments_page(request):
-    print('hello')
-    print("name", User.email)
-    print("howdy")
     user_email = request.user.email
     user_fname = request.user.first_name
     user_lname = request.user.last_name
@@ -26,7 +23,7 @@ def payments_page(request):
     # return redirect(str(process_payment('name','donowoni@gmail.com',100,9133117289)))
 
 
-@login_required
+# @login_required
 # @allowed_users(allowed_users=["pro"]) uncomment when you've finished with pro features
 # @cache_page(15)
 def dashboard(request):
@@ -38,32 +35,37 @@ def dashboard(request):
     animal_monthly_form = AnimalMonthlyForm(request.POST)
     current_user = request.user
     ### Database queries
-    total_alive_animal = Animal.objects.filter(owner_id = current_user, alive=True).all()
-    total_alive_chicken = Animal.objects.filter(owner_id = current_user, alive=True, animal="Chicken").all()
-    total_alive_cow = Animal.objects.filter(owner_id = current_user, alive=True, animal="Cow").all()
-    total_alive_turkey = Animal.objects.filter(owner_id = current_user, alive=True, animal="Turkey").all()
-    total_alive_fish = Animal.objects.filter(owner_id = current_user, alive=True, animal="Fish").all()
-    total_alive_goat = Animal.objects.filter(owner_id = current_user, alive=True, animal="Goat").all()
-    total_alive_sheep = Animal.objects.filter(owner_id = current_user, alive=True, animal="Sheep").all()
+    total_alive_animal = Animal.objects.filter(owner_id=current_user , alive__gte=0).all()
+    for i in total_alive_animal:
+        print(i.animal,i.quantity)
+    # print(total_alive_animal)
+    total_alive_chicken = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Chicken").all()
+    total_alive_cow = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Cow").all()
+    total_alive_turkey = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Turkey").all()
+    total_alive_fish = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Fish").all()
+    total_alive_goat = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Goat").all()
+    total_alive_sheep = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Sheep").all()
     total_expense = Expenses.objects.filter(owner_id = current_user).all()
     total_income = Income.objects.filter(owner_id = current_user).all()
 
 
+
     # calculations on the queries
-    total_animal_quantity = sumOfArr(total_alive_animal,"quantity")
-    total_chicken_quantity = sumOfArr(total_alive_chicken,"quantity")
-    total_cow_quantity = sumOfArr(total_alive_cow,"quantity")
-    total_turkey_quantity = sumOfArr(total_alive_turkey,"quantity")
-    total_fish_quantity = sumOfArr(total_alive_fish,"quantity")
-    total_goat_quantity = sumOfArr(total_alive_goat,"quantity")
-    total_sheep_quantity = sumOfArr(total_alive_sheep,"quantity")
+    total_animal_quantity = sumOfArr(total_alive_animal,"alive")
+    total_chicken_quantity = sumOfArr(total_alive_chicken,"alive")
+    total_cow_quantity = sumOfArr(total_alive_cow,"alive")
+    total_turkey_quantity = sumOfArr(total_alive_turkey,"alive")
+    total_fish_quantity = sumOfArr(total_alive_fish,"alive")
+    total_goat_quantity = sumOfArr(total_alive_goat,"alive")
+    total_sheep_quantity = sumOfArr(total_alive_sheep,"alive")
     total_spent = sumOfArr(total_expense, "amount")
     total_earned = sumOfArr(total_income, "amount")
     total_profit = total_earned - total_spent
 
+
+
     ## content
     content["animal_input_form"] = animal_input_form
-    content["total_monthly_animal"] = 15
     content["animal_monthly_form"] = animal_monthly_form
     content["total_alive_animal"] = total_animal_quantity
     content["total_alive_chicken"] = total_chicken_quantity
@@ -84,30 +86,26 @@ def dashboard(request):
             age_week = animal_input_form.cleaned_data['age_week']
             age_day = animal_input_form.cleaned_data['age_day']
             age = f"{age_week}.{age_day}"
-            # user = request.user
             p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=current_user)
             p.save()
             return redirect(home)
         if animal_monthly_form.is_valid():
             selected_date = animal_monthly_form.cleaned_data['date']
-            print(selected_date)
 
-            total_selected_animal = Animal.objects.filter(owner_id = request.user,created_at=selected_date).all()
-            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive=True, created_at=selected_date).all()
+
+            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive__gte=0, created_at=selected_date).all()
             total_expense = Expenses.objects.filter(owner_id = request.user,date=selected_date).all()
             total_income = Income.objects.filter(owner_id = request.user,date=selected_date).all()
 
 
 
 
-            total_animal_quantity = sumOfArr(total_selected_animal, "quantity")
-            total_selected_alive_animal_quantity = sumOfArr(selected_alive_animal, "quantity")
+            total_selected_alive_animal_quantity = sumOfArr(selected_alive_animal, "alive")
             total_spent = sumOfArr(total_expense, "amount")
             total_earned = sumOfArr(total_income, "amount")
             total_profit = total_earned - total_spent
 
 
-            content["total_monthly_animal"] = total_animal_quantity
             content["total_alive_animal"] = total_selected_alive_animal_quantity
             content["total_money_spent"] = total_spent
             content["total_money_earned"] = total_earned
@@ -118,13 +116,13 @@ def dashboard(request):
 
 
 
-@login_required
+# @login_required
 def upgrade_to_pro(request):
     return render(request, "views_temp/upgradeToPro.html")
 
 
 
-# change later to free page
+
 def home(request):
     context ={}
     context['title'] = "Poultry Plus"
@@ -231,26 +229,34 @@ def death_of_a_bird(request):
 @login_required
 def update_death_database(request, time,animal):
     context = {}
-    print("time: ", time)
-    print("animal", animal)
     user = request.user.id
-    dead_query = Animal.objects.filter(owner_id=user, created_at=time, animal=animal).first()
-    query_result = dead_query.alive
-    print(query_result)
     form = QuantityForm(request.POST)
+    dead_query = Animal.objects.filter(owner_id=user, created_at=time, animal=animal).all()
+    index_of_first_non_zero = 0
+    for i in dead_query:
+        index_of_first_non_zero +=1
+        if i.alive > 0 :
+            break
+
+
+    index_of_first_non_zero -=1
+
+    current_dead_query = dead_query[index_of_first_non_zero]
     if request.method =="POST":
         if form.is_valid():
             quantity_form_data = form.cleaned_data['quantity']
-            if quantity_form_data > query_result:
+            if quantity_form_data > current_dead_query.alive:
                 messages.info(request, "Must be lower than alive animals")
             else:
-                dead_query.alive = query_result - quantity_form_data
-                dead_query.save()
+                current_dead_query.alive -= quantity_form_data
+                current_dead_query.save()
                 messages.info(request, "Updated")
                 return redirect(dashboard)
 
+
+
     context["title"] = "Death of an animal"
-    context["query_result"] = f"You have {query_result} alive animals this age"
+    context["query_result"] = f"You have {current_dead_query.alive} alive animals this age"
     context["form"] = form
     return render(request, "views_temp/dead.html", context)
 

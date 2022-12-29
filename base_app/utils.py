@@ -13,18 +13,18 @@ def sumOfArr(arr, modelType):
             else:
                 total_max +=arr[right].amount
                 right +=1
-    elif modelType == "quantity":
+    elif modelType == "alive":
         while right < n:
             if left < mid:
-                current_sum = arr[left].quantity + arr[right].quantity
+                current_sum = arr[left].alive + arr[right].alive
                 total_max += current_sum
                 left +=1
                 right += 1
             else:
-                total_max +=arr[right].quantity
+                total_max +=arr[right].alive
                 right +=1
     else:
-        print("amount and quantity are your only options")
+        print("amount and alive are your only options")
     return total_max
 
 

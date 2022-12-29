@@ -14,7 +14,7 @@
         <input type="submit" value="Submit">
     </form>
 
-    {% cache 300 slowrunner %}
+    {% comment %} {% cache 300 slowrunner %} {% endcomment %}
         <div>
             Total number of animals: {{ total_alive_animal }} </br>
             total_alive_chicken: {{total_alive_chicken}} </br>
@@ -23,12 +23,12 @@
             total_alive_fish: {{total_alive_fish}} </br>
             total_alive_goat: {{total_alive_goat}} </br>
             total_alive_sheep: {{total_alive_sheep}} </br>
-            Number of animals beginning of month - {{ total_monthly_animal }}</br>
+
             Total Money Spent > ${{ total_money_spent }}</br>
             total money earned : {{ total_money_earned }}</br>
             total profit : {{ total_profit }}</br>
         </div>
-    {% endcache %}
+    {% comment %} {% endcache %} {% endcomment %}
     <div>
         asdlfhas;fha;fjasddf</br>
         asdlfhas;fha;fjasddf</br>
