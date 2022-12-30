@@ -34,31 +34,42 @@ def dashboard(request):
     animal_input_form = AnimalForm(request.POST)
     animal_monthly_form = AnimalMonthlyForm(request.POST)
     current_user = request.user
+
+
     ### Database queries
-    total_alive_animal = Animal.objects.filter(owner_id=current_user , alive__gte=0).all()
+    total_alive_animal = Animal.objects.filter(owner_id=current_user).all()
+
+    total_alive_animal_dict = {
+        "Chicken" : 0,
+        "Cow" : 0,
+        "Turkey" : 0,
+        "Fish" : 0,
+        "Goat" : 0,
+        "Sheep" : 0,
+        "price" : 0,
+    }
+
     for i in total_alive_animal:
-        print(i.animal,i.quantity)
-    # print(total_alive_animal)
-    total_alive_chicken = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Chicken").all()
-    total_alive_cow = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Cow").all()
-    total_alive_turkey = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Turkey").all()
-    total_alive_fish = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Fish").all()
-    total_alive_goat = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Goat").all()
-    total_alive_sheep = Animal.objects.filter(owner_id = current_user, alive__gte=0, animal="Sheep").all()
+        total_alive_animal_dict[i.animal] += i.alive
+        total_alive_animal_dict["price"] += i.price_bought_per_one
+
+
+
+    total_alive_chicken = total_alive_animal_dict["Chicken"]
+    total_alive_cow = total_alive_animal_dict["Cow"]
+    total_alive_turkey = total_alive_animal_dict["Turkey"]
+    total_alive_fish = total_alive_animal_dict["Fish"]
+    total_alive_goat = total_alive_animal_dict["Goat"]
+    total_alive_sheep =total_alive_animal_dict["Sheep"]
+    total_cost_of_animal_bought = total_alive_animal_dict["price"]
     total_expense = Expenses.objects.filter(owner_id = current_user).all()
     total_income = Income.objects.filter(owner_id = current_user).all()
 
 
 
-    # calculations on the queries
+    # # calculations on the queries
     total_animal_quantity = sumOfArr(total_alive_animal,"alive")
-    total_chicken_quantity = sumOfArr(total_alive_chicken,"alive")
-    total_cow_quantity = sumOfArr(total_alive_cow,"alive")
-    total_turkey_quantity = sumOfArr(total_alive_turkey,"alive")
-    total_fish_quantity = sumOfArr(total_alive_fish,"alive")
-    total_goat_quantity = sumOfArr(total_alive_goat,"alive")
-    total_sheep_quantity = sumOfArr(total_alive_sheep,"alive")
-    total_spent = sumOfArr(total_expense, "amount")
+    total_spent = sumOfArr(total_expense, "amount") + total_cost_of_animal_bought
     total_earned = sumOfArr(total_income, "amount")
     total_profit = total_earned - total_spent
 
@@ -68,15 +79,16 @@ def dashboard(request):
     content["animal_input_form"] = animal_input_form
     content["animal_monthly_form"] = animal_monthly_form
     content["total_alive_animal"] = total_animal_quantity
-    content["total_alive_chicken"] = total_chicken_quantity
-    content["total_alive_cow"] = total_cow_quantity
-    content["total_alive_turkey"] = total_turkey_quantity
-    content["total_alive_fish"] = total_fish_quantity
-    content["total_alive_goat"] = total_goat_quantity
-    content["total_alive_sheep"] = total_sheep_quantity
+    content["total_alive_chicken"] = total_alive_chicken
+    content["total_alive_cow"] = total_alive_cow
+    content["total_alive_turkey"] = total_alive_turkey
+    content["total_alive_fish"] = total_alive_fish
+    content["total_alive_goat"] = total_alive_goat
+    content["total_alive_sheep"] = total_alive_sheep
     content["total_money_spent"] = total_spent
     content["total_money_earned"] = total_earned
     content["total_profit"] = total_profit
+
     if request.method == "POST":
         print("post", datetime.utcnow())
         if animal_input_form.is_valid():
@@ -93,20 +105,50 @@ def dashboard(request):
             selected_date = animal_monthly_form.cleaned_data['date']
 
 
-            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive__gte=0, created_at=selected_date).all()
+            selected_alive_animal = Animal.objects.filter(owner_id = request.user,alive__gt=0, created_at=selected_date).all()
             total_expense = Expenses.objects.filter(owner_id = request.user,date=selected_date).all()
             total_income = Income.objects.filter(owner_id = request.user,date=selected_date).all()
+
+            selected_alive_animal_dict = {
+                "Chicken" : 0,
+                "Cow" : 0,
+                "Turkey" : 0,
+                "Fish" : 0,
+                "Goat" : 0,
+                "Sheep" : 0,
+                "price" : 0,
+            }
+            for i in selected_alive_animal:
+                selected_alive_animal_dict[i.animal] += i.alive
+                selected_alive_animal_dict["price"] += i.price_bought_per_one
+
+
+
+            total_alive_chicken = selected_alive_animal_dict["Chicken"]
+            total_alive_cow = selected_alive_animal_dict["Cow"]
+            total_alive_turkey = selected_alive_animal_dict["Turkey"]
+            total_alive_fish = selected_alive_animal_dict["Fish"]
+            total_alive_goat = selected_alive_animal_dict["Goat"]
+            total_alive_sheep =selected_alive_animal_dict["Sheep"]
+            total_cost_of_animal_bought = selected_alive_animal_dict["price"]
+
 
 
 
 
             total_selected_alive_animal_quantity = sumOfArr(selected_alive_animal, "alive")
-            total_spent = sumOfArr(total_expense, "amount")
+            total_spent = sumOfArr(total_expense, "amount") + total_cost_of_animal_bought
             total_earned = sumOfArr(total_income, "amount")
             total_profit = total_earned - total_spent
 
 
             content["total_alive_animal"] = total_selected_alive_animal_quantity
+            content["total_alive_chicken"] = total_alive_chicken
+            content["total_alive_cow"] = total_alive_cow
+            content["total_alive_turkey"] = total_alive_turkey
+            content["total_alive_fish"] = total_alive_fish
+            content["total_alive_goat"] = total_alive_goat
+            content["total_alive_sheep"] = total_alive_sheep
             content["total_money_spent"] = total_spent
             content["total_money_earned"] = total_earned
             content["total_profit"] = total_profit
