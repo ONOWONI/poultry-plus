@@ -3,17 +3,58 @@
 {% load static %}
 {% block content %}
     <div class="forum">
+        <div class="heading-text-container">
+            <p><span>Welcome</span> to our livestock chat room! This is a place for farmers, ranchers, and anyone else interested in livestock to come together and share their knowledge and experience. Whether you raise cows, chickens, pigs, or any other type of animal, we encourage you to join the conversation and share your insights. From breeding and nutrition to health and management, there is always something to learn and discuss in the world of livestock. So come on in and join the herd!</p>
+        </div>
         <div class="chat-containers">
-            <div id="chicken">Chickens</div>
-            <div id="turkey">Turkeys</div>
-            <div id="fish">Fish</div>
-            <div id="sheep">Sheep</div>
-            <div id="goat">Goat</div>
-            <div id="cow">Cow</div>
+            <div class="triangle-container first-animal-chatpage">
+                <div id="chicken" class="forum-text right-position" >Chickens</div>
+                <div class="left-triangle triangle"></div>
+                <div class="right-triangle triangle"></div>
+                <img src="{% static 'pic/we.jpg' %}" class="animal-img left-position" id="chicken-img" />
+            </div>
+            <div class="triangle-container">
+                <div id="turkey" class="forum-text left-position" >Turkeys</div>
+                <div class="left-triangle triangle"></div>
+                <div class="right-triangle triangle"></div>
+                <img src="{% static 'pic/we.jpg' %}" class="animal-img right-position" />
+            </div>
+            <div class="triangle-container">
+                <div id="fish" class="forum-text right-position" >Fish</div>
+                <div class="left-triangle triangle"></div>
+                <div class="right-triangle triangle"></div>
+                <img src="{% static 'pic/we.jpg' %}" class="animal-img left-position" />
+            </div>
+            <div class="triangle-container">
+                <div id="sheep" class="forum-text left-position" >Sheep</div>
+                <div class="left-triangle triangle"></div>
+                <div class="right-triangle triangle"></div>
+                <img src="{% static 'pic/we.jpg' %}" class="animal-img right-position" />
+            </div>
+            <div class="triangle-container">
+                <div id="goat" class="forum-text right-position" >Goat</div>
+                <div class="left-triangle triangle"></div>
+                <div class="right-triangle triangle"></div>
+                <img src="{% static 'pic/we.jpg' %}" class="animal-img left-position" />
+            </div>
+            <div class="triangle-container">
+                <div id="cow" class="forum-text left-position" >Cow</div>
+                <div class="left-triangle triangle"></div>
+                <div class="right-triangle triangle"></div>
+                <img src="{% static 'pic/we.jpg' %}" class="animal-img right-position" />
+            </div>
+        </div>
+        <div class="professional-header">
+            <p><span>Need</span> some expert advice or guidance? Our team of professionals is here to help! With a wide range of skills and experience, we can assist you with a variety of challenges. Contact us today and let us know how we can help you!</p>
         </div>
         <div class="pro-chat-container">
             {% for pro in professionals %}
-                <a href="{% url 'private room' pro.id%}" class='professionals' > {{pro.username}} </a>
+            <a href="{% url 'private room' pro.id%}">
+                <div class="pro-chat-card">
+                    <p>Talk With</p>
+                    <p class="professionals">{{pro.username}}</p>
+                </div>
+            </a>
             {% endfor %}
         </div>
     </div>

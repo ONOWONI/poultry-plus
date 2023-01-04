@@ -2,21 +2,30 @@ html, body{
     margin: 0;
     padding: 0;
 }
-
+/* hsl(180, 82%, 17%); */
 body {
-    background-color: hsl(130, 80%, 30%);
+    background-color:whitesmoke;
 }
-
-
+/* shades */
+/* #2F3566 */
+/* #4C57A6 */
+/* #6F7FF2 */
+/* #5E6BCC */
 .base-container {
     display: flex;
 }
 
 
+/* #a9dbc4 */
+/* #915a51 */
+/* #e07d6e */
+/* #82b0e0 */
+/* #e0be82 */
+/* #386594 */
 
 .base-left {
-    background-color: salmon;
-    width: max-content;
+    background-color:#6977E6;
+    min-width: 200px;
     min-height: 100vh;
 }
 
@@ -25,4 +34,28 @@ body {
     top: 50%;
     transform: translateY(-50%);
     margin: auto 0;
+}
+
+.base-left-links div {
+    margin-bottom: 10px;
+    border: 5px solid #6977E6;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+    transition: 1s all;
+}
+
+
+.base-left-links div:hover {
+    background-color: #6977E6;
+    color:  white;
+}
+
+.base-left-links div:active {
+    background-color: red;
+}
+
+.base-left-links a{
+    color: black;
+    text-decoration: none;
 }

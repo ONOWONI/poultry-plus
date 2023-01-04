@@ -19,12 +19,12 @@
     <div class="base-container">
         <div class="base-left">
             <div class="base-left-links">
-                <div><a href="{% url 'home' %}">Home</a></div>
-                <div><a href="{% url 'dashboard' %}">Dashboard</a></div>
-                <div><a href="{% url 'Forum' %}">Forum</a></div>
-                <div><a href="{% url 'expense' %}">Expenses</a></div>
-                <div><a href="{% url 'income' %}">Income</a></div>
-                <div><a href="{% url 'dead page' %}">Report loss of animal</a></div>
+                <a href="{% url 'home' %}"><div>Home</div></a>
+                <a href="{% url 'dashboard' %}"><div>Dashboard</div></a>
+                <a href="{% url 'Forum' %}"><div>Forum</div></a>
+                <a href="{% url 'expense' %}"><div>Expenses</div></a>
+                <a href="{% url 'income' %}"><div>Income</div></a>
+                <a href="{% url 'dead page' %}"><div>Report loss of animal</div></a>
             </div>
         </div>
         {% comment %} {% cache 15 slowrunner %} {% endcomment %}

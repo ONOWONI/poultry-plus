@@ -23,7 +23,7 @@ def payments_page(request):
     # return redirect(str(process_payment('name','donowoni@gmail.com',100,9133117289)))
 
 
-# @login_required
+@login_required
 # @allowed_users(allowed_users=["pro"]) uncomment when you've finished with pro features
 # @cache_page(15)
 def dashboard(request):
