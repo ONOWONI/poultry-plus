@@ -31,8 +31,8 @@ def dashboard(request):
     # if request.method == 'POST':
     content = {"title": "Dashboard",}
     ## forms
-    animal_input_form = AnimalForm(request.POST)
-    animal_monthly_form = AnimalMonthlyForm(request.POST)
+    animal_input_form = AnimalForm()
+    animal_monthly_form = AnimalMonthlyForm()
     current_user = request.user
 
 
@@ -46,7 +46,7 @@ def dashboard(request):
         "Fish" : 0,
         "Goat" : 0,
         "Sheep" : 0,
-        "price" : 0,
+        "price" : 0.0,
     }
 
     for i in total_alive_animal:
@@ -85,12 +85,14 @@ def dashboard(request):
     content["total_alive_fish"] = total_alive_fish
     content["total_alive_goat"] = total_alive_goat
     content["total_alive_sheep"] = total_alive_sheep
-    content["total_money_spent"] = total_spent
+    content["total_money_spent"] = float(total_spent)
     content["total_money_earned"] = total_earned
     content["total_profit"] = total_profit
 
     if request.method == "POST":
         print("post", datetime.utcnow())
+        animal_input_form = AnimalForm(request.POST)
+        animal_monthly_form = AnimalMonthlyForm(request.POST)
         if animal_input_form.is_valid():
             name = animal_input_form.cleaned_data['animal']
             price_per_one = animal_input_form.cleaned_data['price_per_one']
@@ -100,7 +102,7 @@ def dashboard(request):
             age = f"{age_week}.{age_day}"
             p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=current_user)
             p.save()
-            return redirect(home)
+            return redirect(dashboard)
         if animal_monthly_form.is_valid():
             selected_date = animal_monthly_form.cleaned_data['date']
 
@@ -152,6 +154,8 @@ def dashboard(request):
             content["total_money_spent"] = total_spent
             content["total_money_earned"] = total_earned
             content["total_profit"] = total_profit
+        else:
+            messages.info(request, "Sorry we could not find your animal")
         print("post end", datetime.utcnow())
     print("last",datetime.utcnow())
     return render(request, "views_temp/dashboard.html", content)

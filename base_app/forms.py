@@ -17,11 +17,11 @@ class SignupForm(forms.ModelForm):
 
 
 class AnimalForm(forms.Form):
-    animal = forms.ChoiceField(choices=ANIMAL_CHOICES)
-    price_per_one = forms.FloatField()
-    quantity = forms.IntegerField()
-    age_week = forms.IntegerField()
-    age_day = forms.IntegerField()
+    animal = forms.ChoiceField(choices=ANIMAL_CHOICES, widget=forms.Select(attrs={'class':'input-field'}))
+    price_per_one = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'input-field'}))
+    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input-field'}))
+    age_week = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input-field little-field'}))
+    age_day = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input-field little-field'}))
 
 #  ChoiceField(**kwargs)¶
 
@@ -41,7 +41,8 @@ class IncomeForm(forms.ModelForm):
 
 
 class AnimalMonthlyForm(forms.Form):
-    date = forms.DateField()
+    date = forms.DateField(widget= forms.DateInput(attrs={'type': 'date'}))
+
 
 
 class DeathForm(forms.Form):

@@ -1,32 +1,87 @@
 {% extends 'views_temp/base.html' %}
 {% load cache %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'views/dashboard.css' %}">
+    <section class="dashboard">
+        <nav class="navbar">
+            <span>See your data from a different&nbsp;</span>
+            <form action="" method ="POST" class="montly-form">
+                {% csrf_token %}
+                {{ animal_monthly_form}}
+                <input type="submit" value="Go">
+            </form>
+            <span class="nav-text new-animal-text">Add New Animal</span>
+            <button id="new-animal-button">+</button>
+        </nav>
 
-    <form action="" method = "POST" >
-        {% csrf_token %}
-        {{ animal_input_form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
+        <form action="" method = "POST"  id="animal-input-form">
+            {% csrf_token %}
+            <button id="animal-close-button">X</button>
+            <div>
+                <p class="form-label"> Animal Type </p>
+                {{ animal_input_form.animal }}
+            </div>
+            <div>
+                <p class="form-label"> Price per one</p>
+                {{ animal_input_form.price_per_one }}
+            </div>
+            <div>
+                <p class="form-label">Quantity bought </p>
+                {{ animal_input_form.quantity}}
+            </div>
+            <div id="age-bought-flex">
+                <p class="form-label" id="age-bought">Age bought</p>
+                <div id="age-flex">
+                    <div>{{ animal_input_form.age_week }} weeks</div>
+                    <div>{{ animal_input_form.age_day }} Days</div>
+                </div>
+            </div>
+            <input type="submit" value="Submit" id="animal-submit-button">
+        </form>
 
-    <form action="" method ="POST" >
-        {% csrf_token %}
-        {{ animal_monthly_form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
-
-    {% comment %} {% cache 300 slowrunner %} {% endcomment %}
-        <div>
-            Total number of animals: {{ total_alive_animal }} </br>
-            total_alive_chicken: {{total_alive_chicken}} </br>
-            total_alive_cow: {{total_alive_cow}} </br>
-            total_alive_turkey: {{total_alive_turkey}} </br>
-            total_alive_fish: {{total_alive_fish}} </br>
-            total_alive_goat: {{total_alive_goat}} </br>
-            total_alive_sheep: {{total_alive_sheep}} </br>
-            Total Money Spent > ${{ total_money_spent }}</br>
-            total money earned : {{ total_money_earned }}</br>
-            total profit : {{ total_profit }}</br>
-        </div>
-    {% comment %} {% endcache %} {% endcomment %}
-
+        {% comment %} {% cache 300 slowrunner %} {% endcomment %}
+            <div class="dashboard-container" >
+                <div class="dashboard-top-container">
+                    <div class="total-animal top-box" >
+                        <h3 class="big-number">{{ total_alive_animal }}</h3>
+                        <p>Animals</p>
+                    </div>
+                    <div class="total-income top-box">
+                        <h3 class="big-number">${{ total_money_earned }}</h3>
+                        <p>Earned</p>
+                    </div>
+                    <div class="total-expense top-box">
+                        <h3 class="big-number">${{ total_money_spent }}</h3>
+                        <p> Spent</p>
+                    </div>
+                </div>
+                <div class="dashboard-middle-container">
+                    <div class="middle-box" >
+                        <div>{{total_alive_chicken}} Chickens</div>
+                    </div>
+                    <div class="middle-box" >
+                        <div>{{total_alive_cow}} Cows</div>
+                    </div>
+                    <div class="middle-box" >
+                        <div>{{total_alive_turkey}} Turkeys</div>
+                    </div>
+                    <div class="middle-box" >
+                        <div>{{total_alive_fish}} Fish</div>
+                    </div>
+                    <div class="middle-box" >
+                        <div>{{total_alive_goat}} Goats</div>
+                    </div>
+                    <div class="middle-box" >
+                        <div>{{total_alive_sheep}} Sheep</div>
+                    </div>
+                </div>
+                <div class="dashboard-bottom-container">
+                    <div class="bottom-box first-box">Total Profit Earned: {{ total_profit }}</div>
+                    <div class="bottom-box second-box">Total Number of Animals Dead : 15</div>
+                </div>
+            </div>
+        {% comment %} {% endcache %} {% endcomment %}
+    </section>
+    <script src="{% static 'javascript/dashboard.js' %}"></script>
 {% endblock content %}

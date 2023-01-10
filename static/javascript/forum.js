@@ -1,10 +1,11 @@
 const mainCont = document.getElementsByClassName("triangle-container")
-const animalImage = document.querySelector("#chicken-img")
+
 
 const blue = '#6977E6'
 for (let i = 0; i < mainCont.length; i++) {
     mainCont[i].addEventListener('mouseenter', () => {
         mainCont[i].querySelector(".forum-text").classList.add("shaking-animation");
+        mainCont[i].querySelector(".animal-img").classList.add("shaking-animation");
         mainCont[i].style.backgroundColor = "white";
         const leftTriangle = mainCont[i].querySelector(".left-triangle")
         const rightTriangle = mainCont[i].querySelector(".right-triangle")
@@ -15,6 +16,7 @@ for (let i = 0; i < mainCont.length; i++) {
     })
     mainCont[i].addEventListener('mouseleave', () => {
         mainCont[i].querySelector(".forum-text").classList.remove("shaking-animation");
+        mainCont[i].querySelector(".animal-img").classList.remove("shaking-animation");
         mainCont[i].style.backgroundColor = "white";
         const leftTriangle = mainCont[i].querySelector(".left-triangle")
         const rightTriangle = mainCont[i].querySelector(".right-triangle")

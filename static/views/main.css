@@ -1,10 +1,23 @@
+:root {
+    --blue:#6977E6;
+    --opacity-blue:#37408b;
+    --white: #ffffff;
+    --teal:#04879C;
+    --red:#F30A49;
+    --pink:#F4ABC4;
+    --navy: #595B83;
+    --light-dark-blue:#333456;
+    --dark-blue:#060930;
+  }
+
+
 html, body{
     margin: 0;
     padding: 0;
 }
 /* hsl(180, 82%, 17%); */
 body {
-    background-color:whitesmoke;
+    background-color:var(--dark-blue);
 }
 /* shades */
 /* #2F3566 */
@@ -24,9 +37,11 @@ body {
 /* #386594 */
 
 .base-left {
-    background-color:#6977E6;
-    min-width: 200px;
+    background-color:var(--opacity-blue);
+    width: 20%;
     min-height: 100vh;
+    padding-right: 2px;
+    z-index: 3;
 }
 
 .base-left-links {
@@ -38,17 +53,17 @@ body {
 
 .base-left-links div {
     margin-bottom: 10px;
-    border: 5px solid #6977E6;
+    border: 5px solid var(--opacity-blue);
     padding: 5px;
-    background-color: white;
+    background-color: var(--pink);
     border-radius: 10px;
     transition: 1s all;
 }
 
 
 .base-left-links div:hover {
-    background-color: #6977E6;
-    color:  white;
+    background-color: var(--opacity-blue);
+    color:  var(--pink);
 }
 
 .base-left-links div:active {
