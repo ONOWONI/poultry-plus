@@ -1,11 +1,6 @@
 {% extends 'views_temp/single_form_template.html' %}
 {% block mini %}
-    {% if messages %}
-        {% for message in messages %}
-            <h1> {{message}}</h1>
-        {% endfor %}
-    {% endif %}
-    <h3>{{ query_result }}</h3>
+    <h3 class="dead-query-result">{{ query_result }}</h3>
 {% endblock mini %}
 
 

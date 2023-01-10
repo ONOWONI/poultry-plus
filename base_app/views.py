@@ -8,6 +8,7 @@ from .models  import Animal, Expenses, Income, ChatModel
 from .utils import sumOfArr, age_math
 from datetime import datetime, timedelta, date
 from django.contrib import messages
+from django.db.models import F
 
 
 User = get_user_model()
@@ -47,11 +48,16 @@ def dashboard(request):
         "Goat" : 0,
         "Sheep" : 0,
         "price" : 0.0,
+        "dead" : 0
     }
 
     for i in total_alive_animal:
         total_alive_animal_dict[i.animal] += i.alive
         total_alive_animal_dict["price"] += i.price_bought_per_one
+        if i.alive < i.quantity:
+            total_alive_animal_dict["dead"] += i.quantity - i.alive
+
+    print(total_alive_animal_dict)
 
 
 
@@ -62,6 +68,7 @@ def dashboard(request):
     total_alive_goat = total_alive_animal_dict["Goat"]
     total_alive_sheep =total_alive_animal_dict["Sheep"]
     total_cost_of_animal_bought = total_alive_animal_dict["price"]
+    total_dead_animal = total_alive_animal_dict["dead"]
     total_expense = Expenses.objects.filter(owner_id = current_user).all()
     total_income = Income.objects.filter(owner_id = current_user).all()
 
@@ -88,6 +95,7 @@ def dashboard(request):
     content["total_money_spent"] = float(total_spent)
     content["total_money_earned"] = total_earned
     content["total_profit"] = total_profit
+    content["total_dead_animal"] = total_dead_animal
 
     if request.method == "POST":
         print("post", datetime.utcnow())
@@ -220,13 +228,17 @@ def room(request, room_name):
 @login_required
 def expenses(request):
     content = {}
-    form = ExpenseForm(request.POST)
-    if form.is_valid():
-        expense = form.save(commit=False)
-        expense.owner_id = request.user
-        expense.save()
-        return redirect(dashboard)
+    expenses = Expenses.objects.filter(owner_id = request.user).all().order_by('-date')
+    form = ExpenseForm()
+    if request.method == "POST":
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.owner_id = request.user
+            expense.save()
+            return redirect("expense")
     content["title"] = "Expense"
+    content["data"] = expenses
     content["form"] = form
     return render(request, "views_temp/single_form_template.html", content)
 
@@ -234,21 +246,34 @@ def expenses(request):
 
 @login_required
 def income(request):
-    form= IncomeForm(request.POST)
-    if form.is_valid():
-        income = form.save(commit=False)
-        income.owner_id = request.user
-        income.save()
-        return redirect(dashboard)
-    return render(request, "views_temp/single_form_template.html", {"form": form})
+    context = {}
+    income_query = Income.objects.filter(owner_id = request.user).all().order_by('-date')
+    form= IncomeForm()
+    if request.method == "POST":
+        form= IncomeForm(request.POST)
+        if form.is_valid():
+            income = form.save(commit=False)
+            income.owner_id = request.user
+            income.save()
+            return redirect("income")
+    context["title"] = "Income"
+    context["form"] = form
+    context["data"] = income_query
+    return render(request, "views_temp/single_form_template.html", context)
 
 
 
 @login_required
 def death_of_a_bird(request):
     context = {}
-    form = DeathForm(request.POST)
+    total_dead_animal = Animal.objects.filter(owner_id=request.user, alive__lt=F("quantity")).all().order_by("-modified_aat")
+    total_dead_animal_array = []
+    for i in total_dead_animal:
+        array = [i.quantity - i.alive, i.animal, i.price_bought_per_one, i.modified_aat]
+        total_dead_animal_array.append(array)
+    form = DeathForm()
     if request.method =="POST":
+        form = DeathForm(request.POST)
         if form.is_valid():
             animal_form_data = form.cleaned_data['animal']
             age_week_form_data = form.cleaned_data['age_week']
@@ -258,6 +283,7 @@ def death_of_a_bird(request):
             # below is the code to calculate the age of the animal and query it
             age_in_days = age_math(age_week_form_data, age_day_form_data)
             created_at_date = datetime.strptime(str(date.today()), '%Y-%m-%d') - timedelta(days=age_in_days)
+            print(created_at_date)
             dead_query = Animal.objects.filter(owner_id = user,created_at=created_at_date, animal=animal_form_data).first()
             if dead_query:
                 query_result = dead_query.alive
@@ -268,6 +294,7 @@ def death_of_a_bird(request):
                 messages.info(request, "Sorry we could not find your animal")
     context["form"] = form
     context["title"] = "Death of an animal 😢"
+    context["dead_data"] = total_dead_animal_array
     return render(request, "views_temp/dead.html", context)
 
 
@@ -276,7 +303,7 @@ def death_of_a_bird(request):
 def update_death_database(request, time,animal):
     context = {}
     user = request.user.id
-    form = QuantityForm(request.POST)
+    form = QuantityForm()
     dead_query = Animal.objects.filter(owner_id=user, created_at=time, animal=animal).all()
     index_of_first_non_zero = 0
     for i in dead_query:
@@ -289,6 +316,7 @@ def update_death_database(request, time,animal):
 
     current_dead_query = dead_query[index_of_first_non_zero]
     if request.method =="POST":
+        form = QuantityForm(request.POST)
         if form.is_valid():
             quantity_form_data = form.cleaned_data['quantity']
             if quantity_form_data > current_dead_query.alive:

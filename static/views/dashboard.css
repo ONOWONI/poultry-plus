@@ -9,7 +9,9 @@
     --light-dark-blue:#333456;
     --dark-blue:#060930;
   }
-
+/* * {
+    box-sizing: border-box;
+} */
 
 .dashboard{
     min-height: 100vh;
@@ -177,7 +179,7 @@
 }
 
 .big-number{
-    font-size: 5rem;
+    font-size: 3rem;
     margin: 0;
     text-align: center;
 

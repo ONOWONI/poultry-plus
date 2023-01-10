@@ -1,20 +1,69 @@
 {% extends 'views_temp/base.html' %}
 {% load cache %}
 {% block content %}
-    Hello nigga
     {% comment %} {% cache 15 slowrunner %} {% endcomment %}
-    whats up bitchsss13
     {% comment %} {% endcache %} {% endcomment %}
-    {% if messages %}
-        {% for message in messages %}
-            <h1> {{message}}</h1>
-        {% endfor %}
-    {% endif %}
+    <div class="single-temp">
+        {% if messages %}
+            {% for message in messages %}
+                <h1> {{message}}</h1>
+            {% endfor %}
+        {% endif %}
+        <div class="single-form-container">
+            <form action = "" method = "post" class="single-form">
+                {% csrf_token %}
+                <legend><h1>Add a new entry for Your {{ title }}</h1></legend>
+                {{ form.as_p }}
+                <input type="submit" value="Submit">
+            </form>
+        </div>
 
-    <form action = "" method = "post">
-        {% csrf_token %}
-        {{ form.as_ul }}
-        <input type="submit" value="Submit">
-    </form>
-    {% block mini %}{% endblock mini %}
+        {% if dead_data %}
+            <div class="data-info">
+                <div class="single-temp-header-container">
+                    <p>Number Of Dead Animals</p>
+                    <p>Animal</p>
+                    <p>Amount Bought</p>
+                    <p>Date</p>
+                </div>
+                {% for data in dead_data %}
+                    <div class='data-info-card'>
+                        <span>{{data.0}}</span>
+                        <span>{{data.1}}</span>
+                        <span>$ {{data.2}}</span>
+                        <span>{{data.3}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif title == "Death of an animal"%}
+        {% else %}
+
+        <div class="data-info">
+            <div class="single-temp-header-container">
+                <p>Name</p>
+                <p>Category</p>
+                <p>Amount</p>
+                {% if data %}
+                    {% if data.0.quantity_sold %}
+                        <p class="quantity-sold">Quantity</p>
+                    {% endif %}
+                {% endif %}
+                <p>Date</p>
+            </div>
+            {% for data in data %}
+                <div class="data-info-card">
+                    <span>{{ data.name}}</span>
+                    <span>{{ data.category}}</span>
+                    <span>${{ data.amount}}</span>
+                    {% if data.quantity_sold %}
+                        <span id="quantity-sold-span">{{ data.quantity_sold}}</span>
+                    {% endif %}
+                    <span>{{ data.date}}</span>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block mini %}{% endblock mini %}
+    </div>
 {% endblock content %}

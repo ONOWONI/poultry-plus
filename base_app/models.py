@@ -51,7 +51,7 @@ class Expenses(models.Model):
     name = models.CharField(max_length=30)
     amount = models.FloatField()
     category = models.CharField(max_length=14, choices=EXPENSE_CHOICES)
-    date= models.DateField(auto_now_add=True)
+    date= models.DateTimeField(auto_now_add=True)
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 
@@ -68,7 +68,7 @@ class Income(models.Model):
     amount = models.FloatField()
     quantity_sold = models.IntegerField()
     category = models.CharField(max_length=14, choices=INCOME_CHOICES)
-    date= models.DateField(auto_now_add=True)
+    date= models.DateTimeField(auto_now_add=True)
     owner_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 

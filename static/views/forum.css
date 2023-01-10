@@ -1,10 +1,17 @@
 :root {
-    --blue:#6977E6;
+    /* --blue:#6977E6; */
+    --blue:#37408b;
     --white: #ffffff;
+    --teal:#04879C;
+    --red:#F30A49;
+    --pink:#F4ABC4;
+    --navy: #595B83;
+    --light-dark-blue:#333456;
+    --dark-blue:#060930;
   }
 
-
 .forum{
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -15,12 +22,13 @@
 
 .heading-text-container p {
     padding: 10px 70px;
+    color: var(--teal);
 }
 
 .chat-containers{
-    width: calc(100vw - 350px);
-    padding: 0 5%;
-    margin-left: 10px;
+    width: 100%;
+    /* padding: 0 5%; */
+    /* margin-left: 10px; */
 }
 
 .chat-links {
@@ -34,6 +42,8 @@
 
 .triangle-container{
     height: 50px;
+    width: 80%;
+    margin: 0 auto;
     background-color: var(--blue);
     position: relative;
     z-index: 1;
@@ -87,6 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--white);
     /* text-align: right; */
 }
 
@@ -184,6 +195,7 @@
 
 .professional-header > p {
     padding: 0 70px;
+    color: var(--teal);
 }
 
 
