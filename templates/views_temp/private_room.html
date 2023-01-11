@@ -1,10 +1,16 @@
 {% extends 'views_temp/base.html' %}
 {% load static %}
 {% block content %}
-        <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-        <input id="chat-message-input" type="text" size="100"><br>
-        <input id="chat-message-submit" type="button" value="Send">
-        <div id='user'>{{ owner }}</div>
-        {{ other_user_id|json_script:"room-id" }}
-        <script src="{% static 'javascript/private_room.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'views/chat_page.css' %}">
+        <div class="chat-page">
+			<section id="chat-area"></section>
+			{% comment %} <textarea id="chat-log" cols="100" rows="20"></textarea><br> {% endcomment %}
+			<div class="form-and-submit-container">
+				<input id="chat-message-input" type="text">
+				<input id="chat-message-submit" type="button" value="Send">
+			</div>
+			<div id='user'>{{ owner }}</div>
+			{{ other_user_id|json_script:"room-id" }}
+			<script src="{% static 'javascript/private_room.js' %}"></script>
+		</div>
 {% endblock content %}
