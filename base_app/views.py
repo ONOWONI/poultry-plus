@@ -53,11 +53,10 @@ def dashboard(request):
 
     for i in total_alive_animal:
         total_alive_animal_dict[i.animal] += i.alive
-        total_alive_animal_dict["price"] += i.price_bought_per_one
+        total_alive_animal_dict["price"] += i.price_bought_per_one * i.quantity
         if i.alive < i.quantity:
-            total_alive_animal_dict["dead"] += i.quantity - i.alive
+            total_alive_animal_dict["dead"] += (i.quantity - i.alive)
 
-    print(total_alive_animal_dict)
 
 
 
@@ -130,7 +129,7 @@ def dashboard(request):
             }
             for i in selected_alive_animal:
                 selected_alive_animal_dict[i.animal] += i.alive
-                selected_alive_animal_dict["price"] += i.price_bought_per_one
+                selected_alive_animal_dict["price"] += (i.price_bought_per_one * i.quantity)
 
 
 
@@ -178,6 +177,8 @@ def upgrade_to_pro(request):
 
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect(dashboard)
     context ={}
     context['title'] = "Poultry Plus"
     return render(request, "views_temp/home.html", context)

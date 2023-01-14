@@ -176,7 +176,7 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400
 ACCOUNT_LOGOUT_REDIRECT_URL ='/'
 
 # redirects to profile page if not configured.
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard'
 
 
 CHANNEL_LAYERS = {
