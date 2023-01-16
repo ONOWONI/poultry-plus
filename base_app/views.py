@@ -9,6 +9,7 @@ from .utils import sumOfArr, age_math
 from datetime import datetime, timedelta, date
 from django.contrib import messages
 from django.db.models import F
+from .decorators import allowed_users
 
 
 User = get_user_model()
@@ -21,11 +22,10 @@ def payments_page(request):
     user_id = request.user.id
     user_name = user_fname + " " + user_lname
     return redirect(str(process_payment(user_email, user_name, user_id)))
-    # return redirect(str(process_payment('name','donowoni@gmail.com',100,9133117289)))
 
 
 @login_required
-# @allowed_users(allowed_users=["pro"]) uncomment when you've finished with pro features
+@allowed_users(allowed_users=["Paid"])
 # @cache_page(15)
 def dashboard(request):
     print("first",datetime.utcnow())
@@ -126,10 +126,13 @@ def dashboard(request):
                 "Goat" : 0,
                 "Sheep" : 0,
                 "price" : 0,
+                "dead" : 0,
             }
             for i in selected_alive_animal:
                 selected_alive_animal_dict[i.animal] += i.alive
                 selected_alive_animal_dict["price"] += (i.price_bought_per_one * i.quantity)
+                if i.alive < i.quantity:
+                    total_alive_animal_dict["dead"] += (i.quantity - i.alive)
 
 
 
@@ -140,6 +143,7 @@ def dashboard(request):
             total_alive_goat = selected_alive_animal_dict["Goat"]
             total_alive_sheep =selected_alive_animal_dict["Sheep"]
             total_cost_of_animal_bought = selected_alive_animal_dict["price"]
+            total_dead_animal = selected_alive_animal_dict["dead"]
 
 
 
@@ -161,6 +165,7 @@ def dashboard(request):
             content["total_money_spent"] = total_spent
             content["total_money_earned"] = total_earned
             content["total_profit"] = total_profit
+            content["total_dead_animal"] = total_dead_animal
         else:
             messages.info(request, "Sorry we could not find your animal")
         print("post end", datetime.utcnow())
@@ -169,8 +174,11 @@ def dashboard(request):
 
 
 
-# @login_required
+@login_required
 def upgrade_to_pro(request):
+    asdf = Group.objects.filter(user= request.user)
+    for i in asdf:
+        print(i.name)
     return render(request, "views_temp/upgradeToPro.html")
 
 
@@ -186,6 +194,7 @@ def home(request):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def forum_room(request):
     context = {}
     professionals = User.objects.filter(groups__name="PROs")
@@ -196,6 +205,7 @@ def forum_room(request):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def private_room(request, id):
     context = {}
     other_user_id = User.objects.get(id=id)
@@ -217,6 +227,7 @@ def private_room(request, id):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def room(request, room_name):
     return render(request, 'views_temp/room.html', {
         'room_name': room_name,
@@ -227,6 +238,7 @@ def room(request, room_name):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def expenses(request):
     content = {}
     expenses = Expenses.objects.filter(owner_id = request.user).all().order_by('-date')
@@ -246,6 +258,7 @@ def expenses(request):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def income(request):
     context = {}
     income_query = Income.objects.filter(owner_id = request.user).all().order_by('-date')
@@ -265,6 +278,7 @@ def income(request):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def death_of_a_bird(request):
     context = {}
     total_dead_animal = Animal.objects.filter(owner_id=request.user, alive__lt=F("quantity")).all().order_by("-modified_aat")
@@ -301,6 +315,7 @@ def death_of_a_bird(request):
 
 
 @login_required
+@allowed_users(allowed_users=["Paid"])
 def update_death_database(request, time,animal):
     context = {}
     user = request.user.id

@@ -4,6 +4,7 @@ import random
 import requests
 from dotenv import load_dotenv
 from .models import TransactionRef
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.views.decorators.http import require_http_methods
@@ -33,7 +34,6 @@ def process_payment(email, name, user_id):
             "customizations": {
                 "title": "Poultry Plus",
                 "description" : "Payment for Poultry plus Premium",
-                "logo": "http://www.piedpiper.com/app/themes/joystick-v27/images/logo.png"
             }
         }
     url = "https://api.flutterwave.com/v3/payments"
@@ -54,8 +54,13 @@ def payment_response(request):
         request.user.groups.add(paid_group)
         TransactionRef(tr_ref = tx_ref, owner_id=request.user.id)
         return redirect("dashboard")
+    elif status == "cancelled" :
+        paid_group = Group.objects.get(name="Paid")
+        request.user.groups.add(paid_group)
+        TransactionRef(tr_ref = tx_ref, owner_id=request.user.id)
+        return redirect("dashboard")
     else:
-        print("Transaction not processed. Please try again")
+        messages.error("Transaction not processed. Please try again")
         return redirect("home")
 
 

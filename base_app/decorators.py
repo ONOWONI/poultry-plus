@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+
 
 def allowed_users(allowed_users=[]):
     def decorator(view_func):
@@ -8,6 +10,6 @@ def allowed_users(allowed_users=[]):
             if group in allowed_users:
                 return view_func(request,*args, **kwargs)
             else:
-                print("Upgrade to premium")
+                return redirect('Pro')
         return wrapper_func
     return decorator

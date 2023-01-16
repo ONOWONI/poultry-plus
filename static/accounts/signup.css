@@ -1,0 +1,30 @@
+.signup-page{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--navy);
+}
+.signup p label {
+    margin-right: 30px;
+}
+
+.signup p {
+    width: 200px;
+    padding: 5px 0 0 0;
+}
+
+.signup label{
+    width: 300px;
+}
+
+.signup select {
+    background-color: var(--pink);
+}
+
+.signup input{
+    background-color: var(--pink);
+    border: none;
+    width: 300px;
+}

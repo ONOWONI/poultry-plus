@@ -1,3 +1,33 @@
-* {
-    outline: 1px red solid;
+:root {
+    --blue:#6977E6;
+    --opacity-blue:#37408b;
+    --white: #ffffff;
+    --teal:#04879C;
+    --red:#F30A49;
+    --pink:#F4ABC4;
+    --navy: #595B83;
+    --light-dark-blue:#333456;
+    --dark-blue:#060930;
+}
+
+
+body {
+    background-color: var(--dark-blue);
+    color: var(--teal);
+}
+
+a{
+    color: var(--pink);
+    text-decoration: none;
+}
+
+.menu-div {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    flex-direction: column;
+}
+
+.menu-div ul {
+    list-style: none;
 }

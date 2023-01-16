@@ -1,8 +1,7 @@
 {% extends 'views_temp/base.html' %}
 {% block content %}
-    Click this button to solve all your problems, hahahaha
-    {% comment %} link to this page account_login instead of payment page and then on submit of the form
-        use the details to commplete the premium page
-    {% endcomment %}
-    <li><a href="{% url 'payment page' %}">This button</a></li>
+    <section class="upgrade-to-pro">
+        <p class="info-text">Click the Button to Proceed to the Payment Page</p>
+        <a href="{% url 'payment page' %}" class="payment-button">Make Payment</a>
+    </section>
 {% endblock content %}
