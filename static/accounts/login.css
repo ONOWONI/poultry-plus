@@ -1,0 +1,47 @@
+.login-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.socialaccount_providers{
+    list-style: none;
+    /* border: 1px solid var(--pink); */
+    /* padding: 10px 30px; */
+}
+.login-or{
+    position: relative;
+    left: 20px;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px var(--pink); */
+    padding: 20px;
+    background-color: var(--light-dark-blue);
+}
+
+.login input{
+    background-color: var(--dark-blue);
+    border: 1px solid var(--pink);
+    color: var(--pink);
+}
+
+#id_remember{
+    background-color: var(--pink);
+}
+
+.primaryAction{
+    color: var(--pink);
+    background-color:var(--dark-blue);
+    border: 1px solid var(--pink);
+    padding: 10px 30px;
+    transition: all .5s;
+}
+
+.primaryAction:hover{
+    color: var(--dark-blue);
+    background-color:var(--pink);
+    border: 1px solid var(--dark-blue);
+}

@@ -6,14 +6,26 @@
     align-items: center;
     border: 1px solid var(--navy);
 }
+
+.signup-text{
+    margin-bottom: 0;
+}
+
+.signup{
+    display: flex;
+    flex-direction: column;
+
+}
 .signup p label {
     margin-right: 30px;
 }
 
 .signup p {
-    width: 200px;
+    width: 300px;
     padding: 5px 0 0 0;
+    margin: 5px;
 }
+
 
 .signup label{
     width: 300px;
@@ -27,4 +39,37 @@
     background-color: var(--pink);
     border: none;
     width: 300px;
+}
+
+.signup-btn{
+    justify-self: center;
+    background-color: var(--dark-blue);
+    color: var(--pink);
+    border: 1px solid var(--pink);
+    padding: 5px 30px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 1s;
+}
+
+.signup-btn:hover{
+    background-color: var(--pink);
+    color: var(--dark-blue);
+}
+
+#google-text{
+    margin: 3px auto;
+}
+
+.google-login-btn{
+    border: 1px solid var(--pink);
+    padding: 10px 30px;
+    margin-bottom: 10px;
+    transition: all 1s;
+}
+
+
+.google-login-btn:hover{
+    background-color: var(--pink);
+    color: var(--dark-blue);
 }
