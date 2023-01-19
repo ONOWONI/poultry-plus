@@ -210,6 +210,7 @@ def private_room(request, id):
     context = {}
     other_user_id = User.objects.get(id=id)
     owner = request.user.id
+
     context['owner'] = request.user.username
     context['other_user_id'] = other_user_id.id
     context["title"] = id
@@ -220,7 +221,8 @@ def private_room(request, id):
         thread_name = f'chat_{other_user_id.id}-{owner}-pro'
 
     messages_obj_in_db = ChatModel.objects.filter(thread_name=thread_name)
-    print(messages_obj_in_db)
+
+    context["message"] = messages_obj_in_db
 
     return render(request, 'views_temp/private_room.html', context)
 

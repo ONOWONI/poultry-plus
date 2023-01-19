@@ -17,7 +17,6 @@
 .login{
     display: flex;
     flex-direction: column;
-    /* border: solid 1px var(--pink); */
     padding: 20px;
     background-color: var(--light-dark-blue);
 }

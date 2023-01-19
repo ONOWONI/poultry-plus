@@ -3,7 +3,23 @@
 {% block content %}
 	<link rel="stylesheet" href="{% static 'views/chat_page.css' %}">
         <div class="chat-page">
-			<section id="chat-area"></section>
+			<section id="chat-area">
+				{% for i in message %}
+					{% if owner == i.sender %}
+						<div class="chat-bubble right-message">
+							<div class="chat-sender">{{i.sender}}</div>
+							<div class="chat-message">{{i.message}}</div>
+							<div class="chat-time">{{i.timestamp}}</div>
+						</div>
+					{% else %}
+					<div class="chat-bubble">
+						<div class="chat-sender">{{i.sender}}</div>
+						<div class="chat-message">{{i.message}}</div>
+						<div class="chat-time">{{i.timestamp}}</div>
+					</div>
+					{% endif %}
+				{% endfor %}
+			</section>
 			{% comment %} <textarea id="chat-log" cols="100" rows="20"></textarea><br> {% endcomment %}
 			<div class="form-and-submit-container">
 				<input id="chat-message-input" type="text">
