@@ -1,0 +1,76 @@
+:root {
+    --blue:#6977E6;
+    --opacity-blue:#37408b;
+    --white: #ffffff;
+    --teal:#04879C;
+    --red:#F30A49;
+    --pink:#F4ABC4;
+    --navy: #595B83;
+    --light-dark-blue:#333456;
+    --dark-blue:#060930;
+  }
+
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+/* hsl(180, 82%, 17%); */
+body {
+    background-color:var(--dark-blue);
+}
+/* shades */
+/* #2F3566 */
+/* #4C57A6 */
+/* #6F7FF2 */
+/* #5E6BCC */
+.base-container {
+    display: flex;
+}
+
+
+/* #a9dbc4 */
+/* #915a51 */
+/* #e07d6e */
+/* #82b0e0 */
+/* #e0be82 */
+/* #386594 */
+
+.base-left {
+    background-color:var(--opacity-blue);
+    width: 20%;
+    min-height: 100vh;
+    padding-right: 2px;
+    z-index: 3;
+}
+
+.base-left-links {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto 0;
+}
+
+.base-left-links div {
+    margin-bottom: 10px;
+    border: 5px solid var(--opacity-blue);
+    padding: 5px;
+    background-color: var(--pink);
+    border-radius: 10px;
+    transition: 1s all;
+}
+
+
+.base-left-links div:hover {
+    background-color: var(--opacity-blue);
+    color:  var(--pink);
+}
+
+.base-left-links div:active {
+    background-color: red;
+}
+
+.base-left-links a{
+    color: black;
+    text-decoration: none;
+}

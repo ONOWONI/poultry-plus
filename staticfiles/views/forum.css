@@ -1,0 +1,236 @@
+:root {
+    /* --blue:#6977E6; */
+    --blue:#37408b;
+    --white: #ffffff;
+    --teal:#04879C;
+    --red:#F30A49;
+    --pink:#F4ABC4;
+    --navy: #595B83;
+    --light-dark-blue:#333456;
+    --dark-blue:#060930;
+  }
+
+.forum{
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.heading-text-container p > span {
+    font-size: 2rem;
+}
+
+.heading-text-container p {
+    padding: 10px 70px;
+    color: var(--teal);
+}
+
+.chat-containers{
+    width: 100%;
+    /* padding: 0 5%; */
+    /* margin-left: 10px; */
+}
+
+.chat-links {
+    background-color:var(--blue);
+    cursor: pointer;
+    width: 80%;
+    margin: 1px;
+    padding: 2%;
+}
+
+
+.triangle-container{
+    height: 50px;
+    width: 80%;
+    margin: 0 auto;
+    background-color: var(--blue);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 45px;
+    transition: all .3s;
+    transition-timing-function: cubic-bezier(1,.07,1,1.8);
+    cursor: pointer;
+}
+
+
+.first-animal-chatpage{
+    margin-top: 25px;
+}
+
+.triangle{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--blue);
+}
+
+
+.left-triangle{
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    /* background-color: red;  */
+}
+
+.right-triangle{
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+
+.left-position{
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+
+}
+
+.right-position {
+    position: absolute;
+    width: 10%;
+    right: 0px;
+    z-index: 2;
+    height: 100%;
+}
+
+.forum-text {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    /* text-align: right; */
+}
+
+.animal-img{
+    /* left: 10px; */
+    top: -50%;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    z-index: 2;
+}
+
+.shaking-animation{
+    animation-name: shakingmovement;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+    animation-iteration-count: infinite;
+    /* background-color: red; */
+}
+
+
+@keyframes shakingmovement {
+    0%   {
+        transform: translateX(10px);
+    }
+    50% {
+        transform:translateX(-10px);
+    }
+    100% {
+        transform:translateX(10px);
+    }
+}
+
+.forum-onclick-animation-left {
+    animation-name: forum-onclick-animation;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(1,.07,1,1.8);
+}
+
+
+
+@keyframes forum-onclick-animation {
+    0% {
+        clip-path: polygon(0 0, 0 100%, 100% 100%);
+        transform: scale(0.5);
+    }
+    50%   {
+        transform: translateY(40px);
+        clip-path: polygon(0 0, 0 100%, 100% 0);
+        transform: scale(0.5);
+    }
+    75%   {
+        transform: translateY(-25px);
+        clip-path: polygon(0 0, 0 100%, 100% 100%);
+        transform: scale(0.5);
+    }
+    100%   {
+        transform: translateY(0);
+        clip-path: polygon(0 0, 0 100%, 100% 100%);
+        transform: scale(0.5);
+    }
+}
+
+
+.forum-onclick-animation-right {
+    animation-name: forum-onclick-animation-right;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(1,.07,1,1.8);
+}
+
+
+
+@keyframes forum-onclick-animation-right {
+    0% {
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        transform: scale(0.5);
+    }
+    50%   {
+        transform: translateY(-40px);
+        clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        transform: scale(0.5);
+    }
+    75%   {
+        transform: translateY(25px);
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        transform: scale(0.5);
+    }
+    100%   {
+        transform: translateY(0);
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        transform: scale(0.5);
+    }
+}
+
+
+.professional-header > p {
+    padding: 0 70px;
+    color: var(--teal);
+}
+
+
+.professional-header p > span {
+    font-size: 2rem;
+}
+
+.pro-chat-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+ .pro-chat-container a {
+    text-decoration: none;
+ }
+
+.pro-chat-card{
+    border: 1px solid var(--blue);
+    width: 200px;
+    height: 150px;
+    background-color: var(--blue);
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.pro-chat-card p {
+    font-size: 1.5rem;
+    font-family: monospace;
+    color: var(--white);
+}
+
+
+.professionals {
+    text-align: right;
+}

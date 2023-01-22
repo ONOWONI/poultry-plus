@@ -1,0 +1,132 @@
+:root {
+    /* --blue:#6977E6; */
+    --blue:#37408b;
+    --white: #ffffff;
+    --teal:#04879C;
+    --red:#F30A49;
+    --pink:#F4ABC4;
+    --navy: #595B83;
+    --light-dark-blue:#333456;
+    --dark-blue:#060930;
+  }
+.single-temp{
+    width: 100%;
+}
+
+.single-form-container{
+    background-color: var(--blue);
+    padding: 10px;
+    width: 80%;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.single-form{
+    border: 1px solid var(--navy);
+    background-color: var(--dark-blue);
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--pink);
+}
+.single-form label{
+    width: 200px;
+    /* margin-right: 50px; */
+}
+
+.single-form > p > input {
+    background-color: var(--teal);
+    border: none;
+}
+
+.single-form > p > select {
+    background-color: var(--teal);
+    color: var(--white);
+    border: none;
+}
+
+.single-form > input {
+    background-color: var(--red);
+    border: none;
+    color: var(--pink);
+    padding: 2px 20px;
+}
+.data-info{
+    color: var(--teal);
+    width: 80%;
+    margin: 0 auto;
+}
+
+.single-temp-header-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.single-temp-header-container p{
+    /* border-right: 1px solid var(--pink); */
+    border-bottom: 1px solid var(--pink);
+    font-size: larger;
+    text-align: center;
+    margin: 0;
+}
+.single-temp-header-container p:first-child{
+    flex: 1;
+}
+.single-temp-header-container p:nth-child(2){
+    flex: 0.3;
+}
+.single-temp-header-container p:nth-child(3){
+    flex: 0.3;
+}
+.quantity-sold{
+    flex: 0.3;
+}
+.single-temp-header-container p:last-child{
+    flex: 0.5;
+}
+
+
+.data-info-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    height: 45px;
+}
+
+.data-info-card span{
+    border-right: var(--pink) solid 1px;
+    margin-left: 5px;
+}
+
+.data-info-card span:first-child{
+    flex: 1;
+}
+
+.data-info-card span:nth-child(2){
+    flex: 0.3;
+}
+.data-info-card span:nth-child(3){
+    flex: 0.3;
+}
+
+#quantity-sold-span{
+    flex: 0.3;
+}
+
+
+.data-info-card span:last-child{
+    flex: 0.5;
+    border: none;
+}
+
+.dead-query-result{
+    color: var(--teal);
+    text-align: center;
+    font-size: 2rem;
+}
