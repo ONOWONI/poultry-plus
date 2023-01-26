@@ -29,7 +29,7 @@ ANIMAL_CHOICES = (
 )
 
 class Animal(models.Model):
-    animal = models.CharField( max_length=8, choices=ANIMAL_CHOICES )
+    animal = models.CharField( max_length=20, choices=ANIMAL_CHOICES )
     price_bought_per_one = models.FloatField()
     quantity = models.IntegerField()
     animal_age_at_bought = models.FloatField()
