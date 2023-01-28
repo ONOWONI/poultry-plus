@@ -98,7 +98,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://localhost:6379",
+        "LOCATION": os.getenv("REDIS_URL"),
     }
 }
 
@@ -189,7 +189,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('localhost', 6379)],
+            "hosts": [(os.getenv("REDIS_URL"))],
         },
     },
 }
