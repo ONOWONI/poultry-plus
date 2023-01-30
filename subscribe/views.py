@@ -22,10 +22,9 @@ def process_payment(email, name, user_id):
             "amount": "5000",
             "currency": "NGN",
             "payment_plan":"28319",
-            "redirect_url":"http://localhost:8000/pay/callback",
+            "redirect_url":"https://poultry-plus.onrender.com/pay/callback",
             "meta": {
                 "consumer_id": user_id,
-                # "consumer_mac": "92a3-912ba-1192a"
             },
             "customer": {
                 "email": email,
@@ -52,12 +51,12 @@ def payment_response(request):
     if status == "successful" :
         paid_group = Group.objects.get(name="Paid")
         request.user.groups.add(paid_group)
-        TransactionRef(tr_ref = tx_ref, owner_id=request.user.id)
+        TransactionRef(tx_ref = tx_ref, owner_id=request.user.id)
         return redirect("dashboard")
     elif status == "cancelled" :
         paid_group = Group.objects.get(name="Paid")
         request.user.groups.add(paid_group)
-        TransactionRef(tr_ref = tx_ref, owner_id=request.user.id)
+        TransactionRef(tx_ref = tx_ref, owner_id=request.user.id)
         return redirect("dashboard")
     else:
         messages.error("Transaction not processed. Please try again")

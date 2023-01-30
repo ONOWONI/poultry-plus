@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ["*"]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-6753.up.railway.app/'
+    "https://web-production-6753.up.railway.app/"
 ]
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -85,8 +86,13 @@ ASGI_APPLICATION = "poultryplus.asgi.application"
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+
+
 # DATABASES = {
-#     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
 # }
 DATABASES = {
     "default": {
@@ -136,10 +142,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static/"]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

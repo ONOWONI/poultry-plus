@@ -28,12 +28,7 @@
                 <a href="{% url 'dead page' %}"><div>Report loss of animal</div></a>
             </div>
         </div>
-        {% comment %} {% cache 15 slowrunner %} {% endcomment %}
-        {% comment %} {% endcache %} {% endcomment %}
-        {% comment %} <div class="base-right"> {% endcomment %}
-            {% block content %}{% endblock content %}
-        {% comment %} </div> {% endcomment %}
+        {% block content %}{% endblock content %}
     </div>
-    <script src="{% static 'javascript/base.js' %}"></script>
 </body>
 </html>

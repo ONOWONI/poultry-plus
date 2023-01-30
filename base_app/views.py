@@ -50,12 +50,12 @@ def dashboard(request):
         "price" : 0.0,
         "dead" : 0
     }
-
-    for i in total_alive_animal:
-        total_alive_animal_dict[i.animal] += i.alive
-        total_alive_animal_dict["price"] += i.price_bought_per_one * i.quantity
-        if i.alive < i.quantity:
-            total_alive_animal_dict["dead"] += (i.quantity - i.alive)
+    if total_alive_animal:
+        for i in total_alive_animal:
+            total_alive_animal_dict[i.name] += i.alive
+            total_alive_animal_dict["price"] += i.price_bought_per_one * i.quantity
+            if i.alive < i.quantity:
+                total_alive_animal_dict["dead"] += (i.quantity - i.alive)
 
 
 
@@ -107,7 +107,7 @@ def dashboard(request):
             age_week = animal_input_form.cleaned_data['age_week']
             age_day = animal_input_form.cleaned_data['age_day']
             age = f"{age_week}.{age_day}"
-            p = Animal(animal=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=current_user)
+            p = Animal(name=name, price_bought_per_one=price_per_one,quantity=quantity,animal_age_at_bought=float(age),alive=quantity,owner_id=current_user)
             p.save()
             return redirect(dashboard)
         if animal_monthly_form.is_valid():
@@ -129,7 +129,7 @@ def dashboard(request):
                 "dead" : 0,
             }
             for i in selected_alive_animal:
-                selected_alive_animal_dict[i.animal] += i.alive
+                selected_alive_animal_dict[i.name] += i.alive
                 selected_alive_animal_dict["price"] += (i.price_bought_per_one * i.quantity)
                 if i.alive < i.quantity:
                     total_alive_animal_dict["dead"] += (i.quantity - i.alive)
@@ -177,8 +177,6 @@ def dashboard(request):
 @login_required
 def upgrade_to_pro(request):
     asdf = Group.objects.filter(user= request.user)
-    for i in asdf:
-        print(i.name)
     return render(request, "views_temp/upgradeToPro.html")
 
 
@@ -286,7 +284,7 @@ def death_of_a_bird(request):
     total_dead_animal = Animal.objects.filter(owner_id=request.user, alive__lt=F("quantity")).all().order_by("-modified_aat")
     total_dead_animal_array = []
     for i in total_dead_animal:
-        array = [i.quantity - i.alive, i.animal, i.price_bought_per_one, i.modified_aat]
+        array = [i.quantity - i.alive, i.name, i.price_bought_per_one, i.modified_aat]
         total_dead_animal_array.append(array)
     form = DeathForm()
     if request.method =="POST":
@@ -300,8 +298,7 @@ def death_of_a_bird(request):
             # below is the code to calculate the age of the animal and query it
             age_in_days = age_math(age_week_form_data, age_day_form_data)
             created_at_date = datetime.strptime(str(date.today()), '%Y-%m-%d') - timedelta(days=age_in_days)
-            print(created_at_date)
-            dead_query = Animal.objects.filter(owner_id = user,created_at=created_at_date, animal=animal_form_data).first()
+            dead_query = Animal.objects.filter(owner_id = user,created_at=created_at_date, name=animal_form_data).first()
             if dead_query:
                 query_result = dead_query.alive
                 context["query_result"] = f"You have {query_result} alive animals this age"
@@ -322,7 +319,7 @@ def update_death_database(request, time,animal):
     context = {}
     user = request.user.id
     form = QuantityForm()
-    dead_query = Animal.objects.filter(owner_id=user, created_at=time, animal=animal).all()
+    dead_query = Animal.objects.filter(owner_id=user, created_at=time, name=animal).all()
     index_of_first_non_zero = 0
     for i in dead_query:
         index_of_first_non_zero +=1
