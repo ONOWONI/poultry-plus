@@ -2,7 +2,7 @@ const roomName = JSON.parse(document.getElementById('room-name').textContent);
 const chatArea = document.querySelector("#chat-area")
 const user = document.querySelector("#user")
 const chatSocket = new WebSocket(
-    'ws://'
+    'wss://'
     + window.location.host
     + '/ws/chat/'
     + roomName
