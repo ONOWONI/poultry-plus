@@ -22,7 +22,8 @@ def process_payment(email, name, user_id):
             "amount": "5000",
             "currency": "NGN",
             "payment_plan":"28319",
-            "redirect_url":"https://poultry-plus.onrender.com/pay/callback",
+            # "redirect_url":"https://poultry-plus.onrender.com/pay/callback",
+            "redirect_url":"http://localhost:8000/pay/callback",
             "meta": {
                 "consumer_id": user_id,
             },
@@ -46,21 +47,34 @@ def process_payment(email, name, user_id):
 
 @require_http_methods(['GET', 'POST'])
 def payment_response(request):
+    print("0")
+    print("0")
     status=request.GET.get('status', None)
+    print("0")
     tx_ref=request.GET.get('tx_ref', None)
-    if status == "successful" :
+    print(tx_ref,  " 0")
+    if status == "successful" or "cancelled":
+        print(status, " 1")
+        print(tx_ref)
         paid_group = Group.objects.get(name="Paid")
+        print(status, " 2")
+        print(tx_ref)
         request.user.groups.add(paid_group)
+        print(status , " 3")
+        print(tx_ref)
         TransactionRef(tx_ref = tx_ref, owner_id=request.user.id)
-        return redirect("dashboard")
-    elif status == "cancelled" :
-        paid_group = Group.objects.get(name="Paid")
-        request.user.groups.add(paid_group)
-        TransactionRef(tx_ref = tx_ref, owner_id=request.user.id)
-        return redirect("dashboard")
+        print(status, " 4")
+        print(tx_ref)
+    # elif status == "cancelled" :
+    #     paid_group = Group.objects.get(name="Paid")
+    #     request.user.groups.add(paid_group)
+    #     TransactionRef(tx_ref = tx_ref, owner_id=request.user.id)
+        print(status)
+        print(tx_ref)
     else:
         messages.error("Transaction not processed. Please try again")
         return redirect("home")
+    return redirect("dashboard")
 
 
 

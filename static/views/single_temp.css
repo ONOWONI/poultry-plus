@@ -1,129 +1,131 @@
-:root {
-    /* --blue:#6977E6; */
-    --blue:#37408b;
-    --white: #ffffff;
-    --teal:#04879C;
-    --red:#F30A49;
-    --pink:#F4ABC4;
-    --navy: #595B83;
-    --light-dark-blue:#333456;
-    --dark-blue:#060930;
-  }
 .single-temp{
     width: 100%;
+    display: flex;
+    /* flex-direction: row-reverse; */
 }
 
 .single-form-container{
-    background-color: var(--blue);
     padding: 10px;
-    width: 80%;
-    margin: 10px auto;
-    border-radius: 10px;
+    width: 50%;
+    height: 90vh;
+    position: sticky;
+    top: 20px;
+}
+
+legend {
+    text-align: center;
+    padding-bottom: 10vh;
+    color: var(--teal);
 }
 
 .single-form{
-    border: 1px solid var(--navy);
-    background-color: var(--dark-blue);
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    min-height: 40vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    background: linear-gradient( var(--blue), var(--teal));
     align-items: center;
-    color: var(--pink);
+    justify-content: center;
+    border-radius: 5px;
+    color: var(--alternate-text-colour);
+    font-weight: 600;
+    height: 100%;
+}
+
+.single-form > div {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
 }
 .single-form label{
-    width: 200px;
-    /* margin-right: 50px; */
+    align-self: flex-start;
 }
 
-.single-form > p > input {
-    background-color: var(--teal);
+.single-form > div > input {
+    padding: 7px 0;
+    /* border-radius: 5px; */
     border: none;
+    width: 100%;
+    margin: 0 0 20px 0 ;
 }
 
-.single-form > p > select {
-    background-color: var(--teal);
-    color: var(--white);
+.single-form > div > select {
+    padding: 7px 0;
     border: none;
+    margin: 0 0 20px 0 ;
+    background-color: var(--alternate-text-colour);
 }
 
 .single-form > input {
+    margin: 3vh auto;
+    background-color: var(--blue);
+    border: none;
+    height: 5vh;
+    width: 60%;
+    border-radius: 5px;
+}
+
+/* .single-form > input {
     background-color: var(--red);
     border: none;
-    color: var(--pink);
+    color: var(--alternate-text-colour);
     padding: 2px 20px;
-}
+} */
 .data-info{
     color: var(--teal);
-    width: 80%;
-    margin: 0 auto;
+    width: 50%;
+    padding: 10px;
+    /* margin-right: auto; */
 }
-
-.single-temp-header-container{
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.single-temp-header-container p{
-    /* border-right: 1px solid var(--pink); */
-    border-bottom: 1px solid var(--pink);
-    font-size: larger;
-    text-align: center;
-    margin: 0;
-}
-.single-temp-header-container p:first-child{
-    flex: 1;
-}
-.single-temp-header-container p:nth-child(2){
-    flex: 0.3;
-}
-.single-temp-header-container p:nth-child(3){
-    flex: 0.3;
-}
-.quantity-sold{
-    flex: 0.3;
-}
-.single-temp-header-container p:last-child{
-    flex: 0.5;
-}
-
 
 .data-info-card{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-    height: 45px;
+    display: grid;
+    grid-template-columns:repeat(6,16.6%);
+    grid-template-rows: repeat(2,4vh);
+    margin-bottom: 10px;
+    padding: 3% 20px;
+    background-color: var(--teal);
+    color: var(--blue);
+    border: 1px solid var(--teal);
+    border-left: 10px solid var(--red);
+    border-radius: 5px;
 }
 
-.data-info-card span{
-    border-right: var(--pink) solid 1px;
-    margin-left: 5px;
+#data-info-name {
+    grid-column: 1 / span 5;
+    font-weight: 600;
+    font-size: 1.5rem;
+    border-bottom: 1px var(--blue) solid;
 }
 
-.data-info-card span:first-child{
-    flex: 1;
+#data-info-category {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: flex-start;
 }
 
-.data-info-card span:nth-child(2){
-    flex: 0.3;
-}
-.data-info-card span:nth-child(3){
-    flex: 0.3;
-}
-
-#quantity-sold-span{
-    flex: 0.3;
+#data-info-amount {
+    grid-column: 6;
+    grid-row: 1 / span 2;
+    align-self: center;
+    justify-self: flex-start;
+    /* font-size: 1.3rem;3 */
+    padding-right: 20px;
 }
 
-
-.data-info-card span:last-child{
-    flex: 0.5;
-    border: none;
+#data-info-quantity {
+    grid-column: 2;
+    grid-row: 2;
+    /* align-self: flex-end; */
+    /* justify-self: flex-start; */
+    /* align-self: flex-end; */
 }
+
+#data-info-date {
+    grid-column: 4;
+    grid-row: 2;
+    font-size: smaller;
+    /* margin-right: 20px; */
+}
+
 
 .dead-query-result{
     color: var(--teal);

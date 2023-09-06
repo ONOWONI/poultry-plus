@@ -1,31 +1,34 @@
 :root {
-    --blue:#6977E6;
-    --opacity-blue:#37408b;
-    --white: #ffffff;
-    --teal:#04879C;
+    --blue:#cbffa9;
+    --white-bgc: #ffffff;
+    --teal:#064420ce;
+    /* --teal:#064420; */
     --red:#F30A49;
-    --pink:#F4ABC4;
-    --navy: #595B83;
-    --light-dark-blue:#333456;
-    --dark-blue:#060930;
+    --alternate-text-colour:#faf1e6;
+    --text-color: #595B83;
+    --light-dark-blue:#38e54ca9;
+    /* --light-dark-blue:#38e54d; */
+    --white-bgc:#d9eadd;
 }
 
 
 body {
-    background-color: var(--dark-blue);
+    background-color: var(--white-bgc);
     color: var(--teal);
+    margin: 0;
 }
 
 a{
-    color: var(--pink);
+    color: var(--alternate-text-colour);
     text-decoration: none;
 }
 
 .menu-div {
-    display: flex;
+    display: none;
+    /* display: flex; */
     /* justify-content: center;
     align-items: center; */
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 
 .menu-div ul {

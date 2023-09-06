@@ -5,14 +5,15 @@
 <link rel="stylesheet" href="{% static 'views/dashboard.css' %}">
     <section class="dashboard">
         <nav class="navbar">
-            <span>See your data from a different&nbsp;</span>
+            {% comment %} <span>See your data from a different&nbsp;</span> {% endcomment %}
             <form action="" method ="POST" class="montly-form">
                 {% csrf_token %}
                 {{ animal_monthly_form}}
-                <input type="submit" value="Go">
+                <input type="submit" value="Go" id="go-btn">
             </form>
-            <span class="nav-text new-animal-text">Add New Animal</span>
+            {% comment %} <span class="nav-text new-animal-text">Add New Animal</span> {% endcomment %}
             <button id="new-animal-button">+</button>
+            <button id="search-btn">Q</button>
         </nav>
 
         <form action="" method = "POST"  id="animal-input-form">
@@ -43,42 +44,48 @@
         {% comment %} {% cache 300 slowrunner %} {% endcomment %}
             <div class="dashboard-container" >
                 <div class="dashboard-top-container">
-                    <div class="total-animal top-box" >
-                        <h3 class="big-number">{{ total_alive_animal }}</h3>
-                        <p>Animals</p>
-                    </div>
                     <div class="total-income top-box">
+                        <p>Total Income</p>
                         <h3 class="big-number">${{ total_money_earned }}</h3>
-                        <p>Earned</p>
                     </div>
                     <div class="total-expense top-box">
+                        <p>Total Expense</p>
                         <h3 class="big-number">${{ total_money_spent }}</h3>
-                        <p> Spent</p>
+                    </div>
+                    <div class="total-animal top-box" >
+                        <p>Total animal</p>
+                        <h3 class="big-number">{{ total_alive_animal }}</h3>
                     </div>
                 </div>
                 <div class="dashboard-middle-container">
                     <div class="middle-box" >
-                        <div>{{total_alive_chicken}} Chickens</div>
+                        <div>{{total_alive_chicken}}</div>
+                        <p>Chickens</p>
                     </div>
                     <div class="middle-box" >
-                        <div>{{total_alive_cow}} Cows</div>
+                        <div>{{total_alive_cow}}</div>
+                        <p>Cows</p>
                     </div>
                     <div class="middle-box" >
-                        <div>{{total_alive_turkey}} Turkeys</div>
+                        <div>{{total_alive_turkey}}</div>
+                        <p>Turkeys</p>
                     </div>
                     <div class="middle-box" >
-                        <div>{{total_alive_fish}} Fish</div>
+                        <div>{{total_alive_fish}}</div>
+                        <p>Fish</p>
                     </div>
                     <div class="middle-box" >
-                        <div>{{total_alive_goat}} Goats</div>
+                        <div>{{total_alive_goat}}</div>
+                        <p>Goats</p>
                     </div>
                     <div class="middle-box" >
-                        <div>{{total_alive_sheep}} Sheep</div>
+                        <div>{{total_alive_sheep}}</div>
+                        <p>Sheep</p>
                     </div>
                 </div>
                 <div class="dashboard-bottom-container">
-                    <div class="bottom-box first-box">Total Profit Earned: {{ total_profit }}</div>
-                    <div class="bottom-box second-box">Total Number of Animals Dead : {{total_dead_animal}}</div>
+                    <div class="bottom-box first-box">Total Profit<p>${{ total_profit }}</p></div>
+                    <div class="bottom-box second-box">Total Dead Animals<p>{{total_dead_animal}}</p></div>
                 </div>
             </div>
         {% comment %} {% endcache %} {% endcomment %}

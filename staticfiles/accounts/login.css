@@ -3,11 +3,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 50%;
+    margin-left: auto;
+    /* border: 1px solid var(--teal); */
+    background: linear-gradient(var(--white-bgc), var(--alternate-text-colour), var(--blue), var(--teal));
+    height: 100vh;
 }
 
 .socialaccount_providers{
     list-style: none;
-    /* border: 1px solid var(--pink); */
+    /* border: 1px solid var(--alternate-text-colour); */
     /* padding: 10px 30px; */
 }
 .login-or{
@@ -18,29 +23,86 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    width: 50%;
     background-color: var(--light-dark-blue);
 }
 
+
+.login > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 .login input{
-    background-color: var(--dark-blue);
-    border: 1px solid var(--pink);
-    color: var(--pink);
+    background-color: var(--white-bgc);
+    height: 4vh;
+    color: var(--teal);
+    border: none;
+    width: 70%;
+    margin-left: 20px;
 }
 
 #id_remember{
-    background-color: var(--pink);
+    background-color: var(--alternate-text-colour);
+    width: 20px;
+    border: none;
+    /* justify-self: flex-start; */
+    /* margin-right: auto; */
+}
+
+.login > div > label {
+    display: block;
+    width: 30%;
 }
 
 .primaryAction{
-    color: var(--pink);
-    background-color:var(--dark-blue);
-    border: 1px solid var(--pink);
+    color: var(--alternate-text-colour);
+    background-color:var(--teal);
+    border: 1px solid var(--alternate-text-colour);
     padding: 10px 30px;
     transition: all .5s;
 }
 
 .primaryAction:hover{
-    color: var(--dark-blue);
-    background-color:var(--pink);
-    border: 1px solid var(--dark-blue);
+    color: var(--teal);
+    background-color:var(--alternate-text-colour);
+    border: 1px solid var(--teal);
+}
+
+.third-party-signin {
+    width: 50%;
+}
+
+.third-party-signin a {
+    color: var(--light-dark-blue);
+}
+
+.socialaccount_ballot {
+    width: 50%;
+}
+
+.socialaccount_providers {
+    padding: 0;
+}
+
+/* .socialaccount_providers > li {
+    width: 100%;
+} */
+
+.socialaccount_providers a {
+    display: block;
+    background-color: var(--teal);
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
+    transition: all 1s;
+}
+
+.socialaccount_providers a:hover {
+    background-color: var(--alternate-text-colour);
+    color: var(--teal);
+    border: 1px solid var(--teal);
 }

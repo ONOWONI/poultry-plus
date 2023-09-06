@@ -12,12 +12,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-6753.up.railway.app/"
+    "https://web-production-6753.up.railway.app/",
+    "https://localhost:8000",
+    "https://poultry-plus.onrender.com"
 ]
 
 # Application definition
@@ -93,6 +95,7 @@ ASGI_APPLICATION = "poultryplus.asgi.application"
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -161,7 +164,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 1
+SITE_ID = 3
 
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -201,5 +204,6 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             "hosts": [(os.getenv("REDIS_URL"))],
         },
+        'SSL_ENABLED': True,
     },
 }

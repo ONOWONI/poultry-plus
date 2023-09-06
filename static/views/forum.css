@@ -1,15 +1,3 @@
-:root {
-    /* --blue:#6977E6; */
-    --blue:#37408b;
-    --white: #ffffff;
-    --teal:#04879C;
-    --red:#F30A49;
-    --pink:#F4ABC4;
-    --navy: #595B83;
-    --light-dark-blue:#333456;
-    --dark-blue:#060930;
-  }
-
 .forum{
     width: 100%;
     margin: 0 auto;
@@ -97,7 +85,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--white-bgc);
     /* text-align: right; */
 }
 
@@ -227,7 +215,7 @@
 .pro-chat-card p {
     font-size: 1.5rem;
     font-family: monospace;
-    color: var(--white);
+    color: var(--white-bgc);
 }
 
 

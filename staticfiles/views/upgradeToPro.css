@@ -13,13 +13,13 @@
 
 .payment-button {
     text-decoration: none;
-    border: solid 1px var(--pink);
-    color: var(--pink);
+    border: solid 1px var(--alternate-text-colour);
+    color: var(--alternate-text-colour);
     padding: 10px 30px;
     transition: all 1s;
 }
 
 .payment-button:hover {
-    background-color: var(--pink);
-    color: var(--dark-blue);
+    background-color: var(--alternate-text-colour);
+    color: var(--white-bgc);
 }

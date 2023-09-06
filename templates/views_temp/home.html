@@ -1,37 +1,102 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'views/main.css' %}">
-    <link rel="stylesheet" href="{% static 'views/home.css' %}">
-</head>
-<body>
-    <div class="home">
-        <div class="nav-container">
-            <a href="{% url 'account_login' %}" class="signin-btn"><div>Sign In</div></a>
-            <a href="{% url 'Pro' %}" class="signup-btn"><div>Sign Up</div></a>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="{% static 'views/main.css' %}">
+        <link rel="stylesheet" href="{% static 'views/home.css' %}">
+    </head>
+    <body>
+        <div class="home">
+            <section class="main-hero">
+                <div class="home-logo">Poultry Plus</div>
+                <h1>The Most Reliable Way to Organize and </br>Manage your Poultry Business</h1>
+                <p>Keep track of all your animals, income and expenses in one place</p>
+                <div class="nav-container">
+                    <a href="{% url 'account_login' %}" class="signin-btn">Sign In</a>
+                    <a href="{% url 'account_signup' %}" class="signup-btn">Sign Up</a>
+                </div>
+            </section>
+            <section id="about-us-section">
+                <p>Introducing the ultimate tool for livestock owners! Our site makes it easy to keep track of your animals, and stay on top of important tasks like feeding. Plus,
+                    our built-in bookkeeping features allow you to easily track your expenses and income, so you can keep your farm or ranch running smoothly. With our user-friendly interface and powerful features,
+                    you'll have everything you need to manage your livestock and your business all in one place.
+                </p>
+            </section>
+            <section id="animal-feature-section">
+                <div id="animal-feature-section-text-div">
+                    <div>
+                        <p>Experience stress free and modern inventory tracking systems
+                            track your animal inventory with our poultry farming software.
+                            our poultry farming software makes it easy to track your animal inventory. with our system, you can:
+                        </p>
+                        <ul>
+                            <li>Create a database of your animals. This includes their namd, breed, age , and any other relevant information.</li>
+                            <br />
+                            <li>Track the births and deaths of your animals. this will help you to keep an accurate inventory of your stock.</li>
+                            <br />
+                            <li>Track the movement of your animals. This includes recording any sales, transfers, or deaths.</li>
+                        </ul>
+                        <p>with our poultry frming software, you can easily track your animal inventory and make sure that your animals are healthy, well-fed, and properly cared for</p>
+                    </div>
+                </div>
+                <div id="animal-feature-section-img-div">
+                    <img src="{% static 'pic/dashboard.png' %}" />
+                </div>
+            </section>
+            <section id="booking-section">
+                <img src="{% static 'pic/income_entry.png' %}" />
+                <img src="{% static 'pic/expense_entry.png' %}" />
+                <p>The most up to date book <br />keeping software to run your business</p>
+            </section>
+            <section class="professional-section">
+                <h1>Talk with our Experts to answer any Questions You Have</h1>
+                <div class="professional-info-container">
+                    <div class="professional-info-box"><p>Let Our Experts Make a Diagnosis On your Sick Animals</p></div>
+                    <div class="professional-info-box"><p>All our Experts are Licensed professionals with Work Experience</p></div>
+                    <div class="professional-info-box"><p>Ask for Guidance On How to run a poultry Business</p></div>
+                </div>
+                <h1>Join a chat room with Hundreds Of Poultry Farmers just like You to Share ideas</h1>
+                <div class="community-container">
+                    <p>Join Our Community</p>
+                </div>
+            </section>
+            <section id="price-plan-section">
+                <div class="price-card">
+                    <p>All this for just</p>
+                    <div>
+                        <span id="price-figure">5000<span/><span id="price-currency">naira</span>/
+                        <p id="price-period">month</p>
+                    </div>
+                    <a href="{% url 'account_signup' %}">Get Started</a>
+                </div>
+            </section>
+            {% comment %} <section id="cta-section">
+                CTA
+            </section> {% endcomment %}
+            <footer>
+                <div id="logo-and-copyright-container">
+                    <div id="footer-logo">Poultry Plus</div>
+                    <p> &copy; 2023 Poultry Plus. All rights reserved.
+                </div>
+                <ul>
+                    <li>OverView</li>
+                    <li>Features</li>
+                    <li>Pricing</li>
+                    <li>Careers</li>
+                    <li>Help</li>
+                    <li>Privacy</li>
+                </ul>
+                {% comment %} <div id="footer-links-container">
+                    <a href="#">Twitter</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Twitter</a>
+                </div> {% endcomment %}
+            </footer>
         </div>
-        <section class="main-hero">
-            <h1>The Most Reliable Way to Organize and </br>Manage your Poultry Business</h1>
-            <p>Keep track of all your animals, income and expenses in one place</p>
-        </section>
-        <section class="professional-section">
-            <h1>Talk with our Experts to answer any Questions You Have</h1>
-            <div class="professional-info-container">
-                <div class="professional-info-box"><p>Let Our Experts Make a Diagnosis On your Sick Animals</p></div>
-                <div class="professional-info-box"><p>All our Experts are Licensed professionals with Work Experience</p></div>
-                <div class="professional-info-box"><p>Ask for Guidance On How to run a poultry Business</p></div>
-            </div>
-            <h1>Join a chat room with Hundreds Of Poultry Farmers just like You to Share ideas</h1>
-            <div class="communty-container">
-                <p>Join Our Community</p>
-            </div>
-        </section>
-        <footer>This is the End</footer>
-    </div>
-</body>
+    </body>
 </html>

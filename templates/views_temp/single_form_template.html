@@ -12,8 +12,12 @@
         <div class="single-form-container">
             <form action = "" method = "post" class="single-form">
                 {% csrf_token %}
-                <legend><h1>Add a new entry for Your {{ title }}</h1></legend>
-                {{ form.as_p }}
+                {% if title == "Death of an animal 😢" %}
+                    <legend><h1>Log the {{ title }}</h1></legend>
+                {% else %}
+                    <legend><h1>Create An {{ title }} Entry</h1></legend>
+                {% endif %}
+                {{ form.as_div }}
                 <input type="submit" value="Submit">
             </form>
         </div>
@@ -35,30 +39,20 @@
                     </div>
                 {% endfor %}
             </div>
-        {% elif title == "Death of an animal"%}
+        {% elif title == "Death of an animal 😢"%}
         {% else %}
 
         <div class="data-info">
-            <div class="single-temp-header-container">
-                <p>Name</p>
-                <p>Category</p>
-                <p>Amount</p>
-                {% if data %}
-                    {% if data.0.quantity_sold %}
-                        <p class="quantity-sold">Quantity</p>
-                    {% endif %}
-                {% endif %}
-                <p>Date</p>
-            </div>
             {% for data in data %}
                 <div class="data-info-card">
-                    <span>{{ data.name}}</span>
-                    <span>{{ data.category}}</span>
-                    <span>${{ data.amount}}</span>
+                    <div id="data-info-name">{{ data.name}}</div>
+                    <div id="data-info-category">{{ data.category}}</div>
+                    <div id="data-info-amount">${{ data.amount}}</div>
                     {% if data.quantity_sold %}
-                        <span id="quantity-sold-span">{{ data.quantity_sold}}</span>
+                        <div id="data-info-quantity">{{ data.quantity_sold}}</div>
+                        {% comment %} <div id="data-info-category">{{ data.category}}. {{ data.quantity_sold}}</div> {% endcomment %}
                     {% endif %}
-                    <span>{{ data.date}}</span>
+                    <div id="data-info-date">{{ data.date}}</div>
                 </div>
             {% endfor %}
         </div>
