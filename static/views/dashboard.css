@@ -1,16 +1,15 @@
 .dashboard{
     min-height: 100vh;
     width: calc(100vw - 218px);
-    /* background: linear-gradient(to right bottom, var(--white-bgc), var(--alternate-text-colour), var(--blue), var(--teal)); */
+    background-color: var(--brand-100);
 }
 
 .navbar{
-    background-color: var(--light-dark-blue);
-    color: var(--teal);
+    background-color: var(--brand-700);
+    color: var(--brand-colour);
     display: flex;
     justify-content: end;
     align-items: center;
-    /* height: 60px; */
     margin-bottom: 40px;
 }
 
@@ -19,9 +18,9 @@
 }
 
 .navbar > button {
-    color: var(--blue);
+    color: var(--brand-800);
     border: none;
-    background-color: var(--teal);
+    background-color: var(--brand-colour);
     padding: 5px;
     margin: 5px 0;
 }
@@ -31,8 +30,8 @@
     margin-left: 5%;
 }
 .montly-form > input {
-    background-color: var(--teal);
-    color: var(--blue);
+    background-color: var(--supporting-purple-200);
+    color: var(--supporting-purple-700);
     padding: 5px;
     border: none;
     border-radius: 5px;
@@ -60,7 +59,8 @@
     margin-top: 20px;
     position: relative;
     left: 95%;
-    background-color: red;
+    background-color: var(--supporting-orange-color);
+    color: var(--supporting-blue-color);
     border: none;
     padding: 5px 15px;
     transform: translateX(-100%);
@@ -76,18 +76,29 @@
     width: 50%;
     position: relative;
     left: 25%;
-    color: var(--teal);
+    color: var(--brand-800);
+    background-color: var(--supporting-blue-300);
 }
 
+#animal-input-form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 .form-label{
-    margin-left: 10px;
+    margin-left: 20px;
     width: 20%;
     display: inline-block;
 }
 
 .input-field{
-    background-color:var(--alternate-text-colour);
+    background-color:var(--brand-200);
     border: none;
+    width: 50%;
+    height: 20px;
 }
 
 #age-bought-flex{
@@ -106,19 +117,24 @@
 }
 
 .little-field{
-    width: 40px;
+    width: 50%;
     border: none;
-    background-color:var(--alternate-text-colour);
+    background-color:var(--brand-200);
 }
 
 
 #animal-submit-button{
     cursor: pointer;
-    width: 100px;
+    width: 50%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    margin-bottom: 20px;
+    margin: 20px 0;
+    border: none;
+    background-color: var(--brand-colour);
+    color: var(--brand-800);
+    padding: 10px 30px;
+
 }
 
 .dashboard-container{
@@ -127,7 +143,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
     margin: 0 auto;
 }
 
@@ -140,7 +155,6 @@
 .dashboard-middle-container{
     display: flex;
     align-items: center;
-    /* gap: 10px; */
     margin: 5vh 0;
 }
 
@@ -152,12 +166,11 @@
 }
 
 .top-box{
-    color: var(--teal);
+    color: var(--brand-700);
     width: 33.3%;
     height: 20vh;
-    background:var(--light-dark-blue);
+    background:var(--brand-200);
     border-radius: 16px;
-    /* border: 1px solid var(--teal); */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6.9px);
     -webkit-backdrop-filter: blur(6.9px);
@@ -175,10 +188,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--teal);
-    color: var(--blue);
-    /* border-radius: 10px; */
-    border:1px solid var(--blue);
+    background-color: var(--brand-colour);
+    color: var(--brand-100);
+    border:1px solid var(--brand-100);
 }
 .middle-box > p {
     margin: 0;
@@ -190,7 +202,6 @@
 .middle-box > div{
     width: 100%;
     height: 100%;
-    /* border-radius: 10px; */
     font-size: 1.5rem;
     display: flex;
     align-items: center;
@@ -201,10 +212,9 @@
 
 .bottom-box{
     width: 50%;
-    color: var(--white-bgc);
+    color: var(--brand-700);
     font-size: 1.5rem;
-    background-color: var(--light-dark-blue);
-    color: var(--teal);
+    background-color: var(--brand-200);
     border-radius: 10px;
     /* border: 1px solid var(--teal); */
     padding: 0 0 0 10px;
@@ -241,17 +251,18 @@
         background-color: #fff;
     }
 
-    .navbar {
-        /* display: none; */
-        background-color: olive;
-    }
-
     .navbar > span {
         display: none;
     }
 
     .navbar > form {
         display: none;
+    }
+
+    #animal-close-button{
+        margin: 0 0 50px 0;
+        left: 100%;
+        padding: 5px 15px;
     }
 
 
@@ -262,7 +273,6 @@
         left: 0;
         height: 100%;
         width: 90%;
-        background-color: saddlebrown;
         padding: 5%;
     }
 
@@ -306,9 +316,6 @@
         margin-top: 30px;
         font-weight: 600;
         font-size: 1.2rem;
-        background-color: transparent;
-        color: var(--teal);
-        border: 1px solid  var(--teal);
     }
 
 
@@ -318,7 +325,7 @@
     }
 
     .dashboard-container {
-        padding: 10% 10px 20px 10px;
+        padding: 0 10px;
     }
 
     .dashboard-top-container {
@@ -344,7 +351,7 @@
         border-radius: 0;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: flex-start;
         padding-left: 10px;
     }
@@ -361,8 +368,13 @@
     }
 
     .big-number {
+        font-size: 1.5rem;
+    }
+
+    .top-box p {
         font-size: 1rem;
     }
+
 
     .dashboard-middle-container {
         display: grid;

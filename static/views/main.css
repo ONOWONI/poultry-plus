@@ -8,7 +8,57 @@
     --text-color: #595B83;
     --light-dark-blue:#38e54ca9;
     /* --light-dark-blue:#38e54d; */
+    --green : hsl(119, 90%, 38%);
     --white-bgc:#d9eadd;
+    --brand-colour:hsl(110, 72%, 50%);
+    --brand-100:hsl(110, 69%, 90%);
+    --brand-200:hsl(110, 71%, 80%);
+    --brand-300:hsl(110, 70%, 70%);
+    --brand-400:hsl(110, 71%, 60%);
+    --brand-500:hsl(110, 72%, 40%);
+    --brand-600:hsl(110, 72%, 30%);
+    --brand-700:hsl(110, 72%, 20%);
+    --brand-800:hsl(110, 72%, 10%);
+
+    --supporting-orange-color:hsl(20, 72%, 50%);
+    --supporting-orange-100:hsl(20, 69%, 90%);
+    --supporting-orange-200:hsl(20, 71%, 80%);
+    --supporting-orange-300:hsl(20, 70%, 70%);
+    --supporting-orange-400:hsl(20, 71%, 60%);
+    --supporting-orange-500:hsl(20, 72%, 40%);
+    --supporting-orange-600:hsl(20, 72%, 30%);
+    --supporting-orange-700:hsl(20, 72%, 20%);
+    --supporting-orange-800:hsl(20, 72%, 10%);
+
+    --supporting-blue-color:hsl(200, 72%, 50%);
+    --supporting-blue-100:hsl(200, 69%, 90%);
+    --supporting-blue-200:hsl(200, 71%, 80%);
+    --supporting-blue-300:hsl(200, 70%, 70%);
+    --supporting-blue-400:hsl(200, 71%, 60%);
+    --supporting-blue-500:hsl(200, 72%, 40%);
+    --supporting-blue-600:hsl(200, 72%, 30%);
+    --supporting-blue-700:hsl(200, 72%, 20%);
+    --supporting-blue-800:hsl(200, 72%, 10%);
+
+    --supporting-purple-color:hsl(290, 72%, 50%);
+    --supporting-purple-100:hsl(290, 69%, 90%);
+    --supporting-purple-200:hsl(290, 71%, 80%);
+    --supporting-purple-300:hsl(290, 70%, 70%);
+    --supporting-purple-400:hsl(290, 71%, 60%);
+    --supporting-purple-500:hsl(290, 72%, 40%);
+    --supporting-purple-600:hsl(290, 72%, 30%);
+    --supporting-purple-700:hsl(290, 72%, 20%);
+    --supporting-purple-800:hsl(290, 72%, 10%);
+
+    --neutral-color:hsl(0, 0%, 50%);
+    --neutral-100:hsl(0, 0%, 90%);
+    --neutral-200:hsl(0, 0%, 80%);
+    --neutral-300:hsl(0, 0%, 70%);
+    --neutral-400:hsl(0, 0%, 60%);
+    --neutral-500:hsl(0, 0%, 40%);
+    --neutral-600:hsl(0, 0%, 30%);
+    --neutral-700:hsl(0, 0%, 20%);
+    --neutral-800:hsl(0, 0%, 10%);
 
     /* --blue:#6977E6;
     --opacity-blue:#37408b;
@@ -24,7 +74,10 @@
 }
 
 
-
+@font-face {
+    font-family: montserrat;
+    src: url("/static/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf");
+}
 
 
 html, body{
@@ -35,7 +88,8 @@ html, body{
 /* hsl(180, 82%, 17%); */
 body {
     /* background-color:var(--white-bgc); */
-    background: linear-gradient(to right bottom, var(--white-bgc), var(--alternate-text-colour), var(--blue), var(--teal));
+    background-color: var(--brand-100);
+    color: var(--brand-800);
 }
 
 .base-container {

@@ -5,9 +5,9 @@
     justify-content: center;
     width: 50%;
     margin-left: auto;
-    /* border: 1px solid var(--teal); */
-    background: linear-gradient(var(--white-bgc), var(--alternate-text-colour), var(--blue), var(--teal));
+    background-color: var(--brand-100);
     height: 100vh;
+    color: var(--brand-800);
 }
 
 .socialaccount_providers{
@@ -23,8 +23,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    width: 50%;
-    background-color: var(--light-dark-blue);
+    width: 70%;
 }
 
 
@@ -36,7 +35,7 @@
     margin-bottom: 20px;
 }
 .login input{
-    background-color: var(--white-bgc);
+    background-color: var(--brand-200);
     height: 4vh;
     color: var(--teal);
     border: none;
@@ -45,9 +44,8 @@
 }
 
 #id_remember{
-    background-color: var(--alternate-text-colour);
     width: 20px;
-    border: none;
+    /* border: none; */
     /* justify-self: flex-start; */
     /* margin-right: auto; */
 }
@@ -58,17 +56,19 @@
 }
 
 .primaryAction{
-    color: var(--alternate-text-colour);
-    background-color:var(--teal);
+    background-color: var(--brand-colour);
+    color:var(--brand-800);
     border: 1px solid var(--alternate-text-colour);
     padding: 10px 30px;
     transition: all .5s;
+    /* font-weight: 600; */
+    font-size: 1.2rem;
 }
 
 .primaryAction:hover{
-    color: var(--teal);
-    background-color:var(--alternate-text-colour);
-    border: 1px solid var(--teal);
+    color: var(--brand-colour);
+    background-color:var(--brand-800);
+    border: 1px solid var(--brand-colour);
 }
 
 .third-party-signin {
@@ -76,7 +76,7 @@
 }
 
 .third-party-signin a {
-    color: var(--light-dark-blue);
+    color: var(--supporting-orange-500);
 }
 
 .socialaccount_ballot {
@@ -93,7 +93,8 @@
 
 .socialaccount_providers a {
     display: block;
-    background-color: var(--teal);
+    background-color: var(--supporting-blue-color);
+    color: var(--supporting-blue-800);
     text-align: center;
     width: 100%;
     padding: 10px 0;
@@ -102,7 +103,7 @@
 }
 
 .socialaccount_providers a:hover {
-    background-color: var(--alternate-text-colour);
-    color: var(--teal);
-    border: 1px solid var(--teal);
+    background-color: var(--supporting-blue-800);
+    color: var(--supporting-blue-color);
+    border: 1px solid var(--supporting-blue-color);
 }

@@ -11,13 +11,18 @@
     </head>
     <body>
         <div class="home">
+            <nav class="home-logo">Poultry Plus</nav>
             <section class="main-hero">
-                <div class="home-logo">Poultry Plus</div>
-                <h1>The Most Reliable Way to Organize and </br>Manage your Poultry Business</h1>
-                <p>Keep track of all your animals, income and expenses in one place</p>
-                <div class="nav-container">
-                    <a href="{% url 'account_login' %}" class="signin-btn">Sign In</a>
-                    <a href="{% url 'account_signup' %}" class="signup-btn">Sign Up</a>
+                <div class="main-hero-text">
+                    <h1>The Most Reliable Way to Organize and Manage your Poultry Business</h1>
+                    <p>Keep track of all your animals, income and expenses in one place</p>
+                    <div class="cta-container">
+                        <a href="{% url 'account_signup' %}" class="signup-btn primary-btn">Sign Up</a>
+                        <a href="{% url 'account_login' %}" class="signin-btn">Sign In</a>
+                    </div>
+                </div>
+                <div class="main-hero-img-container">
+                    <img src="{% static 'pic/barn.png' %}" />
                 </div>
             </section>
             <section id="about-us-section">
@@ -40,7 +45,7 @@
                             <br />
                             <li>Track the movement of your animals. This includes recording any sales, transfers, or deaths.</li>
                         </ul>
-                        <p>with our poultry frming software, you can easily track your animal inventory and make sure that your animals are healthy, well-fed, and properly cared for</p>
+                        <p>with our poultry farming software, you can easily track your animal inventory and make sure that your animals are healthy, well-fed, and properly cared for</p>
                     </div>
                 </div>
                 <div id="animal-feature-section-img-div">

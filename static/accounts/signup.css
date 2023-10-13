@@ -6,13 +6,15 @@
     justify-content: center;
     align-items: center;
     margin-left: auto;
-    background: linear-gradient(var(--white-bgc), var(--alternate-text-colour), var(--blue), var(--teal));
+    /* background: linear-gradient(var(--white-bgc), var(--alternate-text-colour), var(--blue), var(--teal)); */
+    background-color: var(--brand-100);
+    color: var(--brand-800);
 }
 
 .signup {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 70%;
     margin-bottom: 30px;
 }
 
@@ -20,11 +22,11 @@
 
 .signup-text{
     margin-bottom: 5px;
-    color: var(--alternate-text-colour);
+    color: var(--supporting-purple-800);
 }
 
 .signup-text > a {
-    color: var(--blue);
+    color: var(--supporting-orange-500);
 }
 
 
@@ -38,23 +40,23 @@
 
 
 .signup select {
-    background-color: var(--alternate-text-colour);
+    background-color: var(--brand-200);
+    width: 70%;
 }
 
 .signup input{
-    background-color: var(--alternate-text-colour);
+    background-color: var(--brand-200);
     border: none;
-    width: 200px;
+    width: 70%;
     height: 4vh;
-    border: 1px solid var(--teal);
 }
 
 
 
 .signup-btn{
     justify-self: center;
-    background-color: var(--teal);
-    color: var(--alternate-text-colour);
+    background-color: var(--brand-colour);
+    color: var(--brand-800);
     border: none;
     padding: 10px 0;
     margin-top: 20px;
@@ -62,17 +64,19 @@
     transition: all 1s;
     width: 100%;
     border-radius: 5px;
+    font-size: 1.1rem;
 }
 
 .signup-btn:hover{
-    background-color: var(--alternate-text-colour);
-    color: var(--teal);
+    background-color: var(--brand-800);
+    color: var(--brand-colour);
     border: 1px solid var(--teal);
 }
 
 
 .google-login-btn{
-    background-color: var(--teal);
+    background-color: var(--supporting-blue-color);
+    color: var(--supporting-blue-800);
     text-align: center;
     width: 50%;
     padding: 10px 0;
@@ -82,7 +86,7 @@
 
 
 .google-login-btn:hover{
-    background-color: var(--alternate-text-colour);
-    color: var(--teal);
-    border: 1px solid var(--teal);
+    background-color: var(--supporting-blue-800);
+    color: var(--supporting-blue-color);
+    border: 1px solid var(--supporting-blue-color);
 }

@@ -1,7 +1,7 @@
 .single-temp{
     width: 100%;
     display: flex;
-    /* flex-direction: row-reverse; */
+    color: var(--brand-700);
 }
 
 .single-form-container{
@@ -15,17 +15,16 @@
 legend {
     text-align: center;
     padding-bottom: 10vh;
-    color: var(--teal);
+    color: var(--brand-700);
 }
 
 .single-form{
     display: flex;
     flex-direction: column;
-    background: linear-gradient( var(--blue), var(--teal));
+    background-color: var(--brand-200);
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    color: var(--alternate-text-colour);
     font-weight: 600;
     height: 100%;
 }
@@ -41,39 +40,31 @@ legend {
 
 .single-form > div > input {
     padding: 7px 0;
-    /* border-radius: 5px; */
     border: none;
     width: 100%;
     margin: 0 0 20px 0 ;
+    background-color: var(--brand-100);
 }
 
 .single-form > div > select {
     padding: 7px 0;
     border: none;
     margin: 0 0 20px 0 ;
-    background-color: var(--alternate-text-colour);
+    background-color: var(--brand-100);
 }
 
 .single-form > input {
     margin: 3vh auto;
-    background-color: var(--blue);
+    background-color: var(--brand-colour);
     border: none;
     height: 5vh;
     width: 60%;
     border-radius: 5px;
 }
 
-/* .single-form > input {
-    background-color: var(--red);
-    border: none;
-    color: var(--alternate-text-colour);
-    padding: 2px 20px;
-} */
 .data-info{
-    color: var(--teal);
     width: 50%;
     padding: 10px;
-    /* margin-right: auto; */
 }
 
 .data-info-card{
@@ -82,10 +73,10 @@ legend {
     grid-template-rows: repeat(2,4vh);
     margin-bottom: 10px;
     padding: 3% 20px;
-    background-color: var(--teal);
-    color: var(--blue);
-    border: 1px solid var(--teal);
-    border-left: 10px solid var(--red);
+    background-color: var(--brand-200);
+    color: var(--brand-800);
+    border: 1px solid var(--brand-800);
+    border-left: 10px solid var(--supporting-purple-500);
     border-radius: 5px;
 }
 
@@ -93,7 +84,7 @@ legend {
     grid-column: 1 / span 5;
     font-weight: 600;
     font-size: 1.5rem;
-    border-bottom: 1px var(--blue) solid;
+    border-bottom: 1px var(--brand-800) solid;
 }
 
 #data-info-category {
@@ -107,28 +98,23 @@ legend {
     grid-row: 1 / span 2;
     align-self: center;
     justify-self: flex-start;
-    /* font-size: 1.3rem;3 */
     padding-right: 20px;
 }
 
 #data-info-quantity {
     grid-column: 2;
     grid-row: 2;
-    /* align-self: flex-end; */
-    /* justify-self: flex-start; */
-    /* align-self: flex-end; */
 }
 
 #data-info-date {
     grid-column: 4;
     grid-row: 2;
     font-size: smaller;
-    /* margin-right: 20px; */
 }
 
 
 .dead-query-result{
-    color: var(--teal);
+    color: var(--brand-800);
     text-align: center;
     font-size: 2rem;
 }
